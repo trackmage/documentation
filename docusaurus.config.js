@@ -1,11 +1,11 @@
 module.exports = {
   title: 'TrackMage Documentation',
   tagline: 'A tracking page for your store. Beautiful, branded, customizable',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://docs.trackmage.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
-  organizationName: 'TrackMage', // Usually your GitHub org/user name.
-  projectName: 'TrackMage', // Usually your repo name.
+  organizationName: 'trackmage', // Usually your GitHub org/user name.
+  projectName: 'documentation', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'TrackMage Documentation',
