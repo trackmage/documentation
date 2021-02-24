@@ -1,3 +1,15 @@
+const fs = require('fs');
+// const spec = fs.readFileSync('./petstore.yaml', 'utf-8');
+const path = require('path');
+const https = require('https');
+const spec = JSON.parse(downloadFileSync('https://api.trackmage.com/docs.json'));
+    // fs.readFileSync('https://api.trackmage.com/docs.json', 'utf-8');
+
+function downloadFileSync(url) {
+  return require('child_process')
+      .execFileSync('curl', ['--silent', '-L', url]); // remove options {encoding: 'utf8'}
+}
+
 module.exports = {
   title: 'TrackMage Documentation',
   tagline: 'A tracking page for your store. Beautiful, branded, customizable',
@@ -14,6 +26,11 @@ module.exports = {
         src: 'img/logo.jpg',
       },
       items: [
+        {
+          to: 'api-reference',
+          label: 'API Reference',
+          position: 'left'
+        },
         {
           to: 'docs/',
           activeBasePath: 'docs',
@@ -41,10 +58,6 @@ module.exports = {
             {
               label: 'Style Guide',
               to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
             },
           ],
         },
@@ -91,4 +104,8 @@ module.exports = {
       },
     ],
   ],
+  customFields: {
+    apiSpec: spec
+  },
+  plugins: [path.resolve(__dirname, 'redoc-plugin')],
 };
