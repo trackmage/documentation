@@ -1,0 +1,79 @@
+---
+id: BeforeStart
+title: Before You Start
+sidebar_label: Before Start
+slug: before-start
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<h3 id="create-account">Create a TrackMake account</h3>
+See <a href="https://help.trackmage.com/en/docs/5-how-to-sign-up-for-trackmage" title="How to sign up for TrackMage" target="_blank">How to sign up for TrackMage</a> for instructions on creating new Account on TrackMage.
+
+<h3 id="create-api-keys">Create API Keys</h3>
+<p>To use TrackMage API, you'll need to generate an API Key and Secret which will be included with any calls made to the API. The Key and Secret are used to authenticate the API calls so that TrackMage updates the information within your specific account.
+       To generate your API Key and Secret, follow the steps below:</p>
+<ol>
+<li>Go to <a href="https://app.trackmage.com/dashboard/user-profile/api-keys" target="_blank" title="TrackMage Api Keys Settings">Api Keys Settings</a></li>
+<li>Enter your App Name and App Url, press on Generate button</li>
+<li>Copy your Client Id and Secret</li>
+</ol>
+
+<h3 id="obtain-authorization-token">Obtain Authorization TOKEN</h3>
+
+:::note
+Ignore this step of you use TrackMage PHP SDK
+:::
+
+:::note
+Use generated "access_token" from response in the future requests.
+:::
+
+<Tabs
+  groupId="languages"
+  defaultValue="curl"
+  values={[
+    {label: 'cURL', value: 'curl'},
+    {label: 'HTTP', value: 'http'},
+  ]
+}>
+<TabItem value="curl">
+
+```curl
+curl --location --request GET 'https://api.trackmage.com/oauth/v2/token?grant_type=client_credentials&client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET'
+```
+
+</TabItem>
+<TabItem value="http">
+
+```http
+GET https://api.rc.trackmage.com/oauth/v2/token?grant_type=client_credentials&client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET
+Accept: application/json
+```
+
+</TabItem>
+</Tabs>
+
+Example response:
+```json
+{
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTMwMDY1ODcsImV4cCI6MTU5MzAxMDE4Nywicm9sZXMiOltdLCJ1c2VybmFtZSI6ImhhcmJ1em5pYWsueWV2aGVuaWlAZ21haWwuY29tIn0.WyAtVsSq4z3T90-mVac7ReSHZ9ro3nBWKS_OqXoC2rkLxX4yiHGmgAZFrnojbJP0Qyq7nIliwRJO-32o24n4TVhoSmtyVNddVAHpHyTVhvS5MXK4huCvu1S30cCQBIPgSJFE82e7cu9-Sq50JmhvjTtW0_Ww0Jv1ofAm56q46k2RlvOus4SXvEBRJHP53FDSBjnGqTpogwy7FB6TZJfujxVBlA3VqPbj0L5bmchzg-dAvrZYrehEKsGTYPGXDveNg3ptAK1nQ56u-r_WgZ_uIpeBXNBnY9RRj_xZWFGYYIiMUhCueENDCFPya61BoxrjSu97EiP_vr7GYJ2FO-ObFbk5hKc-Pa6pI70ey6ai5VwQ0DgtSTJhvRBijphzNDP5ucAX0sn2xJYKHcgP91kAXWQTsVGZBD3e-cfN0S2K4VaG_nyLkQWn-DbN8SJa_-eoUFJ2R2OBOSHunRM1LQe9Ub2EQ9hh07JzR_T2XiTedJM8B02S6UoQ4sXuTdr0wEP5ANxTSYS6vWUatdm6A_K3inrhK82-qWyhldp2XrqC8a8XYThvTTBufxzUcTnjIEbrdgd-UPajSH7WFNl-mpRTE9I2vtYwFsKo1IHekPZu5hX5qs-ZSrRBqY4vGved2NS7gQ9TcZLzX6wSmEV7LpBMnSAQ1TXA_lGXBC7TSCsUI2A",
+    "expires_in": 3600,
+    "token_type": "bearer",
+    "scope": "user",
+    "user_id": "fe1dec62-490e-4f16-afb2-6f9dd303d930",
+    "user_email": "your@email.com"
+}
+```
+
+<h3 id="download-libraries">Download SDK</h3>
+<ol>
+    <li><a href="https://github.com/trackmage/trackmage-sdk-php" target="_blank" title="Download TrackMage SDK for PHP">TrackMage SDK for PHP</a></li>
+</ol>
+
+:::note
+You can use cURL or any HTTP client library for the desired language.
+:::
+
+

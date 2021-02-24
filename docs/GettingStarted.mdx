@@ -1,0 +1,157 @@
+---
+id: GettingStarted
+title: Getting Started
+sidebar_label: Getting Started
+slug: getting-started
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<p>This guide will walk you through creating new shipment and getting tracking link with TrackMage.</p>
+
+___
+
+<h3>Step 0: Obtain API Credentials and Authorization TOKEN</h3>
+See <a href="/docs/before-start#obtain-authorization-token" title="Before Start - Obtain Authorization TOKEN">Before Start</a> for instructions on obtaining store API credentials and TOKEN.
+<p>In API calls, include obtained authorization token or api credentials.</p>
+
+<h3>Step 1: Create client</h3>
+
+:::note
+Skip this step if you use cURL, Postman or HTTP Client in your IDE
+:::
+
+<Tabs
+    groupId="languages"
+    defaultValue="php"
+    values={[
+        {label: 'PHP', value: 'php'},
+    ]}>
+<TabItem value="php">
+
+```php
+use TrackMage\Client\TrackMageClient;
+
+// Create Client using Client ID and Client Secret
+$clientId = 'CLIENT_ID';
+$clientSecret = 'CLIENT_SECRET';
+$client = new TrackMageClient($clientId, $clientSecret);
+
+// --- or ----
+// Create client using obtained authorization token
+$client = new TrackMageClient();
+$client->setAccessToken('YOUR_TOKEN');
+```
+</TabItem>
+</Tabs>
+
+<h3>Step 2: Create a shipment with tracking number</h3>
+
+<Tabs
+  groupId="languages"
+  defaultValue="curl"
+  values={[
+    {label: 'cURL', value: 'curl'},
+    {label: 'PHP', value: 'php'},
+  ]
+}>
+<TabItem value="curl">
+
+```curl
+curl -X POST https://api.trackmage.com/shipments \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json \
+    -H "Authorization: Bearer YOUR_TOKEN"
+```
+
+</TabItem>
+<TabItem value="php">
+
+```php
+
+use GuzzleHttp\Exception\ClientException;
+
+...
+
+$workspaceId = 'WORKSPACE_ID'; // a desired workspace UUID
+$data = [
+    'workspace' => "/workspaces/{$workspaceId}",
+    'trackingNumber' => 'TRACKING_NUMBER',
+    'originCarrier' => 'ORIGIN_CARRIER_CODE', // optionally
+    'email' => 'CUSTOMER_EMAIL' // optionally
+];
+try {
+    $response = $client->getGuzzleClient()->post('/shipments', [
+    'headers' => [
+    'Content-Type' => 'application/ld+json'
+    ],
+    'body' => \GuzzleHttp\json_encode($data)
+    ]);
+    $shipment =  \GuzzleHttp\json_decode( $response->getBody()->getContents(), true );
+    echo $shipment['id'];
+} catch (ClientException $e) {
+    $contents = $e->getResponse()->getBody()->getContents();
+    $data = \GuzzleHttp\json_decode($contents, true);
+    printf('An client exception occurred: %d %s',
+            $e->getCode(),
+            $data['hydra:description']);
+} catch (\Exception $e) {
+    printf('An error occurred: %d %s', $e->getCode(), $e->getMessage());
+}
+
+```
+
+</TabItem>
+</Tabs>
+
+<h3>Step 3: Receive tracking page link for created shipment</h3>
+
+<Tabs
+    groupId="languages"
+    defaultValue="curl"
+    values={[
+        {label: 'cURL', value: 'curl'},
+        {label: 'PHP', value: 'php'},
+    ]
+    }>
+<TabItem value="curl">
+
+```curl
+curl -X POST https://api.trackmage.com/generate_tracking_page_link \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json \
+    -H "Authorization: Bearer YOUR_TOKEN"
+```
+
+</TabItem>
+ <TabItem value="php">
+
+```php
+try {
+     $response = $client->getGuzzleClient()->post('/generate_tracking_page_link', [
+         'headers' => [
+            'Content-Type' => 'application/ld+json'
+         ],
+         'body' => \GuzzleHttp\json_encode([
+             'trackingPageId' => 'TRACKING_PAGE_ID',
+             'filter' => [
+                'id' => $shipmentId
+             ]
+         ])
+     ]);
+     $trackingPageLink = \GuzzleHttp\json_decode( $response->getBody()->getContents(), true );
+     echo $trackingPageLink['link'];
+ } catch (ClientException $e) {
+     $contents = $e->getResponse()->getBody()->getContents();
+     $data = \GuzzleHttp\json_decode($contents, true);
+     printf('An client exception occurred: %d %s', $e->getCode(), $data['hydra:description']);
+     exit;
+ } catch (\Exception $e) {
+     printf('An error occurred: %d %s', $e->getCode(), $e->getMessage());
+     exit;
+ }
+```
+</TabItem>
+</Tabs>
+

@@ -1,0 +1,67 @@
+---
+id:  Errors
+title: Errors
+sidebar_label: Errors
+slug: errors
+---
+
+// TODO: Edit text
+<p>In the event of a client or server error, the response will contain the standard 4xx or 5xx respectively, accompanied by a well-formed JSON body describing the issue, e.g., a required field was omitted, a purchase failed, etc.</p>
+
+<h3>Common HTTP Error Status Codes</h3>
+<table>
+    <thead>
+    <tr>
+        <th>code</th>
+        <th>reason-phrase</th>
+        <th>description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>301</td>
+        <td>Moved Permanently</td>
+        <td>Error with request url. Moved permanently</td>
+    </tr>
+    <tr>
+        <td>400</td>
+        <td>Bad Request</td>
+        <td>Request not processed due to client error</td>
+    </tr>
+    <tr>
+        <td>402</td>
+        <td>Payment Required</td>
+        <td>Plan Upgrade Required</td>
+    </tr>
+    <tr>
+        <td>403</td>
+        <td>Access Denied</td>
+        <td>You have no permissions to process the request</td>
+    </tr>
+    <tr>
+        <td>404</td>
+        <td>Not Found</td>
+        <td>The url you are trying to request not found!</td>
+    </tr>
+    <tr>
+        <td>405</td>
+        <td>Method Not Allowed</td>
+        <td>The method you are trying to call is not allowed!</td>
+    </tr>
+    <tr>
+        <td>413</td>
+        <td>Payload Too Large</td>
+        <td>The file you are trying to upload is too big! Try smaller file</td>
+    </tr>
+    <tr>
+        <td>500</td>
+        <td>Server Error</td>
+        <td>There is an internal server error with your request.</td>
+    </tr>
+    <tr>
+        <td>502</td>
+        <td>Bad Gateway</td>
+        <td>There is a bad gateway server error with your request. Please, try again later.</td>
+    </tr>
+    </tbody>
+</table>

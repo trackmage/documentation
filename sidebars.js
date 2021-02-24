@@ -1,6 +1,21 @@
 module.exports = {
-  someSidebar: {
-    Docusaurus: ['doc1', 'doc2', 'doc3'],
-    Features: ['mdx'],
-  },
+  mainSidebar: [
+    {
+      type: 'doc',
+      id: 'APIIntroduction'
+    },
+    {
+      type: 'doc',
+      id: 'BeforeStart'
+    },
+    {
+      type: 'doc',
+      id: 'GettingStarted'
+    },
+    {
+      type: 'category',
+      label: 'TrackMage API',
+      items: ['TrackMageApi/Objects', 'TrackMageApi/Errors'],
+    },
+  ],
 };

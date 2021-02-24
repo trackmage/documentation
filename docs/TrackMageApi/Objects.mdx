@@ -1,0 +1,25 @@
+---
+id:  Objects
+title: Objects
+sidebar_label: Objects
+slug: objects
+---
+
+<p>The TrackMage API consists of many object types. There are several attributes that are consistent across all
+    objects:</p>
+<ul>
+    <li><strong>id</strong>: Every TrackMage Object that can be created and received through the API has an id field
+        that is used to refer to the object in other API calls. An id is represented by UUID. These id values may be
+        used in many API endpoints to refer to an existing object rather than specifying the full object definition.
+    </li>
+    <li>
+        <strong>workspace</strong>: Most API Objects also include Workspace value in format '/workspaces/UUID' that is
+        used to refer to the Workspace to which the object belongs. These Workspace values are required in the most API endpoints.
+    </li>
+    <li>
+        <strong>created_at/updated_at</strong>: Most API objects also include values for created_at and updated_at.
+        These two fields respectively specify the time the object in question was created and most recently updated.
+        These datetime fields are formatted according to <a href="https://www.w3.org/TR/NOTE-datetime" target="_blank"
+                                                            title="ISO 8601 Date and Time Formats">ISO 8601</a>.
+    </li>
+</ul>
