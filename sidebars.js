@@ -6,7 +6,7 @@ module.exports = {
     },
     {
       type: 'doc',
-      id: 'BeforeStart'
+      id: 'Authorization'
     },
     {
       type: 'doc',
@@ -14,8 +14,8 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'TrackMage API',
-      items: ['TrackMageApi/Objects', 'TrackMageApi/Errors'],
+      label: 'Shipment',
+      items: ['Shipment/Shipment', 'Shipment/ShipmentItem'],
     },
   ],
 };

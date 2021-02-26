@@ -1,3 +1,12 @@
+const fs = require('fs');
+const spec = fs.readFileSync('./src/swagger_docs.json', 'utf-8');
+
+// function downloadFile(url) {
+//   return require('child_process')
+//       .execFileSync('curl', ['--silent', '-L', url], {encoding: 'utf8', maxBuffer: Infinity});
+// }
+// const content = downloadFile('https://api.trackmage.com/docs.json?spec_version=3');
+const apiJson = JSON.parse(spec);//JSON.parse(content);
 module.exports = {
   title: 'TrackMage Documentation',
   tagline: 'A tracking page for your store. Beautiful, branded, customizable',
@@ -39,12 +48,8 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
+              label: 'Docs',
               to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
             },
           ],
         },
@@ -91,4 +96,8 @@ module.exports = {
       },
     ],
   ],
-};
+  customFields: {
+    openApiJSON: apiJson
+  }
+}
+;
