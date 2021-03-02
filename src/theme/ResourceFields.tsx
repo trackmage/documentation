@@ -1,5 +1,7 @@
 import React, {ReactElement, ReactNode} from "react";
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Highlight from '@theme/Highlight';
+const ReactMarkdownWithHtml = require('react-markdown/with-html');
 
 type Props = {
     readonly schemaName: string;
@@ -7,19 +9,6 @@ type Props = {
     readonly blockId: string;
     readonly customTitle: string;
 }
-
-export const Highlight = ({children, color}) => (
-    <span
-        style={{
-            backgroundColor: color,
-            borderRadius: '2px',
-            color: '#fff',
-            padding: '0.2rem',
-            clear: 'both',
-        }}>
-    {children}
-  </span>
-);
 
 const ResourceFields = (props: Props): JSX.Element => {
     const {siteConfig} = useDocusaurusContext();
@@ -42,9 +31,10 @@ const ResourceFields = (props: Props): JSX.Element => {
         const nullable = options.nullable ? `|null` : '';
         const type = options.type ? (<span>Type: <strong>{options.type}{nullable}</strong></span>) : '';
         const example = options.example ? (<p>Example: <code>{options.example}</code></p>) : '';
-        const description = options.description ? (<p  dangerouslySetInnerHTML={{ __html: options.description }}></p>) : '';
+        const description = options.description ? (<ReactMarkdownWithHtml children={options.description} allowDangerousHtml />) : '';
         const format = options.format ? `(format: <strong>${options.format}</strong>)` : '';
-        const extraHtml = options.extraHtml ? (<div dangerouslySetInnerHTML={{ __html: options.extraHtml }}></div>) : '';
+
+        const extraHtml = options.extra ? (<ReactMarkdownWithHtml children={`${options.extra}`} allowDangerousHtml />) : '';
         return (
             <div>
                 <p>{type} <span dangerouslySetInnerHTML={{ __html: format }}></span></p>
@@ -101,8 +91,7 @@ const ResourceFields = (props: Props): JSX.Element => {
     }
     return (
         <div>
-            {getTitleTag()}
-            <table class="properties-table">
+            <table className="properties-table">
                 <tbody>
                     {Object.keys(resourceObject.properties).map((key) => (
                         propertyToHTML(key, resourceObject.properties[key])
