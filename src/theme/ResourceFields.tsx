@@ -5,9 +5,9 @@ const ReactMarkdownWithHtml = require('react-markdown/with-html');
 
 type Props = {
     readonly schemaName: string;
-    readonly titleTag: string;
-    readonly blockId: string;
-    readonly customTitle: string;
+    readonly titleTag?: string;
+    readonly blockId?: string;
+    readonly customTitle?: string;
 }
 
 const ResourceFields = (props: Props): JSX.Element => {
@@ -45,35 +45,50 @@ const ResourceFields = (props: Props): JSX.Element => {
         ) as ReactElement;
     }
 
+    const getResultJSON = (refObject, toString = true): string|{} => {
+        let resultJson = {};
+        Object.keys(refObject.properties).forEach(propertyKey => {
+            const property = refObject.properties[propertyKey] || {};
+            if(!!property.example){
+                resultJson[propertyKey] = property.type === 'array'? eval(property.example) : property.example;
+            } else if(!!property['$ref'] || !!property['anyOf']) {
+                const childRef = !!property['anyOf'] ? getObjectByRef(property.anyOf[0]['$ref']) : getObjectByRef(property['$ref']);
+                resultJson[propertyKey] = getResultJSON(childRef, false);
+            } else {
+                resultJson[propertyKey] = refObject.properties[propertyKey]?.type + (refObject.properties[propertyKey]?.nullable ? `|null` : '');
+            }
+        });
+        return toString ? JSON.stringify(resultJson, null, 2) : resultJson;
+    };
+
     const propertyRef = (name: string, options, ref: string): ReactElement => {
         const refObject = getObjectByRef(ref);
         if (null === refObject) return null;
-        let resultJson = {};
         let prDescriptions = [];
         Object.keys(refObject.properties).forEach(propertyKey => {
-            resultJson[propertyKey] = refObject.properties[propertyKey]?.example || (refObject.properties[propertyKey]?.type + (refObject.properties[propertyKey]?.nullable ? `|null` : ''));
-            prDescriptions.push((<li><strong>{propertyKey}</strong>: {refObject.properties[propertyKey]?.description}</li>));
+            prDescriptions.push((<li><strong>{propertyKey}</strong>: <ReactMarkdownWithHtml children={refObject.properties[propertyKey]?.description} allowDangerousHtml /></li>));
         });
         const nullable = options.nullable ? `|null` : '';
         const type = refObject.type ? (<span>Type: <strong>{refObject.type}{nullable}</strong></span>) : '';
-        const description = options.description ? (<p>{options.description}</p>) : '';
+        const description = options.description ? (<p><ReactMarkdownWithHtml children={options.description} allowDangerousHtml /></p>) : '';
         const propDescription = React.createElement('ul', {}, prDescriptions);
         return (
             <div>
                 <p>{type}</p>
                 {description}
-                Example: <pre>"{name}": {JSON.stringify(resultJson, null, 2)}</pre>
+                Example: <pre style={{maxWidth: '500px', overflow: 'auto'}}>"{name}": {getResultJSON(refObject)}</pre>
                 {propDescription}
             </div>
         ) as ReactElement;
     }
 
-    const propertyToHTML = (name, options): ReactElement => {
+    const propertyToHTML = (name, options, required = false): ReactElement => {
         let tds: ReactNode[] = [];
         const ref = options['$ref'] || null;
         const readOnly = options.readOnly ? (<Highlight color="#25c2a0">READ-ONLY</Highlight>) : '';
+        const isRequired = required? (<Highlight color="#25c2a0">REQUIRED</Highlight>) : '';
         const anyOf = options.anyOf || [];
-        tds.push(React.createElement('td', {}, (<p><strong>{name}</strong><br/>{readOnly}</p>)))
+        tds.push(React.createElement('td', {}, (<p><strong>{name}</strong><br/>{readOnly}{isRequired}</p>)))
         if (anyOf.length > 0) {
             let variants = [];
             anyOf.forEach(variant => {
@@ -87,14 +102,16 @@ const ResourceFields = (props: Props): JSX.Element => {
         } else {
             tds.push(React.createElement('td', {}, ref === null? propertyDescription(options) : propertyRef(name, options, ref)))
         }
-        return React.createElement('tr', {}, tds);
+        return React.createElement('tr', {key: name}, tds);
     }
     return (
         <div>
             <table className="properties-table">
                 <tbody>
-                    {Object.keys(resourceObject.properties).map((key) => (
-                        propertyToHTML(key, resourceObject.properties[key])
+                    {Object.keys(resourceObject.properties)
+                        .sort((a, b) => +resourceObject.properties[b].required || 0 - +resourceObject.properties[a].required || 0)
+                        .map((key) => (
+                        propertyToHTML(key, resourceObject.properties[key], resourceObject.required.indexOf(key) !== -1)
                     ))}
                 </tbody>
             </table>

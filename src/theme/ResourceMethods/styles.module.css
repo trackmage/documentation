@@ -1,0 +1,39 @@
+.endpointItem{
+    border: 1px solid rgb(238, 114, 39);
+    margin: 10px 0;
+}
+.endpointItem .endpointHeader{
+    border-bottom: 1px solid rgb(238, 114, 39);
+    display: flex;
+    font-weight: bold;
+    justify-content: start;
+}
+.endpointItem .endpointHeader .endpointMethod{
+    text-transform: uppercase;
+    background-color: rgb(238, 114, 39);
+    color: #ffffff;
+    width: 100px;
+    text-align: center;
+    padding: 10px;
+}
+.endpointItem .endpointHeader .endpointPath{
+    background-color: rgb(245, 246, 247);
+    color: rgb(38, 57, 100);
+    padding: 10px;
+    width: 100%;
+}
+.endpointItem .endpointDescription{
+    padding: 10px;
+    color: #000000;
+    text-indent: 20px;
+    text-align: justify;
+    background-color: rgb(245, 246, 247);
+}
+.endpointItem .endpointParameters{
+
+}
+.endpointItem .endpointParameters .endpointParametersTitle{
+    background: rgb(38, 57, 100);
+    color: #ffffff;
+    padding: 0 10px;
+}

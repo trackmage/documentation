@@ -6,362 +6,6 @@
         "description": "TrackMage API"
     },
     "paths": {
-        "/addresses": {
-            "get": {
-                "tags": [
-                    "Address"
-                ],
-                "operationId": "getAddressCollection",
-                "summary": "Retrieves the collection of Address resources.",
-                "responses": {
-                    "200": {
-                        "description": "Address collection response",
-                        "content": {
-                            "application/ld+json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "hydra:member": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/Address:jsonld"
-                                            }
-                                        },
-                                        "hydra:totalItems": {
-                                            "type": "integer",
-                                            "minimum": 0
-                                        },
-                                        "hydra:view": {
-                                            "type": "object",
-                                            "properties": {
-                                                "@id": {
-                                                    "type": "string",
-                                                    "format": "iri-reference"
-                                                },
-                                                "@type": {
-                                                    "type": "string"
-                                                },
-                                                "hydra:first": {
-                                                    "type": "string",
-                                                    "format": "iri-reference"
-                                                },
-                                                "hydra:last": {
-                                                    "type": "string",
-                                                    "format": "iri-reference"
-                                                },
-                                                "hydra:next": {
-                                                    "type": "string",
-                                                    "format": "iri-reference"
-                                                }
-                                            }
-                                        },
-                                        "hydra:search": {
-                                            "type": "object",
-                                            "properties": {
-                                                "@type": {
-                                                    "type": "string"
-                                                },
-                                                "hydra:template": {
-                                                    "type": "string"
-                                                },
-                                                "hydra:variableRepresentation": {
-                                                    "type": "string"
-                                                },
-                                                "hydra:mapping": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                            "@type": {
-                                                                "type": "string"
-                                                            },
-                                                            "variable": {
-                                                                "type": "string"
-                                                            },
-                                                            "property": {
-                                                                "type": "string",
-                                                                "nullable": true
-                                                            },
-                                                            "required": {
-                                                                "type": "boolean"
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "required": [
-                                        "hydra:member"
-                                    ]
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Address"
-                                    }
-                                }
-                            },
-                            "text/csv": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Address"
-                                    }
-                                }
-                            },
-                            "text/html": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Address"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "required": false,
-                        "description": "The collection page number",
-                        "schema": {
-                            "type": "integer",
-                            "default": 1
-                        }
-                    },
-                    {
-                        "name": "itemsPerPage",
-                        "in": "query",
-                        "required": false,
-                        "description": "The number of items per page",
-                        "schema": {
-                            "type": "integer",
-                            "default": 30,
-                            "minimum": 0
-                        }
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Address"
-                ],
-                "operationId": "postAddressCollection",
-                "summary": "Creates a Address resource.",
-                "responses": {
-                    "201": {
-                        "description": "Address resource created",
-                        "content": {
-                            "application/ld+json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Address:jsonld"
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Address"
-                                }
-                            },
-                            "text/csv": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Address"
-                                }
-                            },
-                            "text/html": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Address"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid input"
-                    },
-                    "404": {
-                        "description": "Resource not found"
-                    }
-                },
-                "requestBody": {
-                    "content": {
-                        "application/ld+json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Address:jsonld"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Address"
-                            }
-                        },
-                        "text/csv": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Address"
-                            }
-                        },
-                        "text/html": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Address"
-                            }
-                        }
-                    },
-                    "description": "The new Address resource"
-                }
-            }
-        },
-        "/addresses/{id}": {
-            "get": {
-                "tags": [
-                    "Address"
-                ],
-                "operationId": "getAddressItem",
-                "summary": "Retrieves a Address resource.",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Address resource response",
-                        "content": {
-                            "application/ld+json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Address:jsonld"
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Address"
-                                }
-                            },
-                            "text/csv": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Address"
-                                }
-                            },
-                            "text/html": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Address"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Resource not found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Address"
-                ],
-                "operationId": "deleteAddressItem",
-                "summary": "Removes the Address resource.",
-                "responses": {
-                    "204": {
-                        "description": "Address resource deleted"
-                    },
-                    "404": {
-                        "description": "Resource not found"
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "Address"
-                ],
-                "operationId": "putAddressItem",
-                "summary": "Replaces the Address resource.",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Address resource updated",
-                        "content": {
-                            "application/ld+json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Address:jsonld"
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Address"
-                                }
-                            },
-                            "text/csv": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Address"
-                                }
-                            },
-                            "text/html": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Address"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid input"
-                    },
-                    "404": {
-                        "description": "Resource not found"
-                    }
-                },
-                "requestBody": {
-                    "content": {
-                        "application/ld+json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Address:jsonld"
-                            }
-                        },
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Address"
-                            }
-                        },
-                        "text/csv": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Address"
-                            }
-                        },
-                        "text/html": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Address"
-                            }
-                        }
-                    },
-                    "description": "The updated Address resource"
-                }
-            }
-        },
         "/billing/chargebee/create_session": {
             "post": {
                 "tags": [
@@ -27036,100 +26680,31 @@
     ],
     "components": {
         "schemas": {
-            "Address": {
-                "type": "object",
-                "properties": {
-                    "empty": {
-                        "readOnly": true,
-                        "type": "boolean"
-                    },
-                    "addressLine1": {
-                        "nullable": true,
-                        "description": "The street address. This field is optional.",
-                        "example": "1969 Roy Alley",
-                        "type": "string"
-                    },
-                    "addressLine2": {
-                        "nullable": true,
-                        "description": "An optional additional field for the street address. This field is optional.",
-                        "example": "Apartment 2",
-                        "type": "string"
-                    },
-                    "city": {
-                        "nullable": true,
-                        "description": "The city, town, or village. This field is optional.",
-                        "example": "Palco",
-                        "type": "string"
-                    },
-                    "company": {
-                        "nullable": true,
-                        "description": "The company of the person associated with the address. This field is optional.",
-                        "example": "OPTDEAL LIMITED.",
-                        "type": "string"
-                    },
-                    "country": {
-                        "nullable": true,
-                        "description": "The name of the country. This field is optional.",
-                        "example": "United States",
-                        "type": "string"
-                    },
-                    "countryIso2": {
-                        "nullable": true,
-                        "description": "The two-letter country code. This field is optional.",
-                        "example": "US",
-                        "type": "string"
-                    },
-                    "firstName": {
-                        "nullable": true,
-                        "description": "The first name of the person associated with the address. This field is optional.",
-                        "example": "Tanisha",
-                        "type": "string"
-                    },
-                    "lastName": {
-                        "nullable": true,
-                        "description": "The last name of the person associated with the address. This field is optional.",
-                        "example": "Simmons",
-                        "type": "string"
-                    },
-                    "postcode": {
-                        "nullable": true,
-                        "description": "The postal code (zip, postcode, Eircode, \u2026). This field is optional.",
-                        "example": 67657,
-                        "type": "string"
-                    },
-                    "state": {
-                        "nullable": true,
-                        "description": "The name of the region (province, state, prefecture, \u2026). This field is optional.",
-                        "example": "Kansas",
-                        "type": "string"
-                    }
-                }
-            },
             "Address-Get": {
                 "type": "object",
                 "properties": {
                     "addressLine1": {
                         "nullable": true,
                         "description": "The street address. This field is optional.",
-                        "example": "1969 Roy Alley",
+                        "example": "567 East Cedar",
                         "type": "string"
                     },
                     "addressLine2": {
                         "nullable": true,
                         "description": "An optional additional field for the street address. This field is optional.",
-                        "example": "Apartment 2",
+                        "example": "Apartment 1",
                         "type": "string"
                     },
                     "city": {
                         "nullable": true,
                         "description": "The city, town, or village. This field is optional.",
-                        "example": "Palco",
+                        "example": "Liberal",
                         "type": "string"
                     },
                     "company": {
                         "nullable": true,
                         "description": "The company of the person associated with the address. This field is optional.",
-                        "example": "OPTDEAL LIMITED.",
+                        "example": "Acme, Inc.",
                         "type": "string"
                     },
                     "country": {
@@ -27147,19 +26722,19 @@
                     "firstName": {
                         "nullable": true,
                         "description": "The first name of the person associated with the address. This field is optional.",
-                        "example": "Tanisha",
+                        "example": "Dorothy",
                         "type": "string"
                     },
                     "lastName": {
                         "nullable": true,
                         "description": "The last name of the person associated with the address. This field is optional.",
-                        "example": "Simmons",
+                        "example": "Gale",
                         "type": "string"
                     },
                     "postcode": {
                         "nullable": true,
                         "description": "The postal code (zip, postcode, Eircode, \u2026). This field is optional.",
-                        "example": 67657,
+                        "example": 67901,
                         "type": "string"
                     },
                     "state": {
@@ -27176,25 +26751,25 @@
                     "addressLine1": {
                         "nullable": true,
                         "description": "The street address. This field is optional.",
-                        "example": "1969 Roy Alley",
+                        "example": "567 East Cedar",
                         "type": "string"
                     },
                     "addressLine2": {
                         "nullable": true,
                         "description": "An optional additional field for the street address. This field is optional.",
-                        "example": "Apartment 2",
+                        "example": "Apartment 1",
                         "type": "string"
                     },
                     "city": {
                         "nullable": true,
                         "description": "The city, town, or village. This field is optional.",
-                        "example": "Palco",
+                        "example": "Liberal",
                         "type": "string"
                     },
                     "company": {
                         "nullable": true,
                         "description": "The company of the person associated with the address. This field is optional.",
-                        "example": "OPTDEAL LIMITED.",
+                        "example": "Acme, Inc.",
                         "type": "string"
                     },
                     "country": {
@@ -27212,19 +26787,19 @@
                     "firstName": {
                         "nullable": true,
                         "description": "The first name of the person associated with the address. This field is optional.",
-                        "example": "Tanisha",
+                        "example": "Dorothy",
                         "type": "string"
                     },
                     "lastName": {
                         "nullable": true,
                         "description": "The last name of the person associated with the address. This field is optional.",
-                        "example": "Simmons",
+                        "example": "Gale",
                         "type": "string"
                     },
                     "postcode": {
                         "nullable": true,
                         "description": "The postal code (zip, postcode, Eircode, \u2026). This field is optional.",
-                        "example": 67657,
+                        "example": 67901,
                         "type": "string"
                     },
                     "state": {
@@ -27241,25 +26816,25 @@
                     "addressLine1": {
                         "nullable": true,
                         "description": "The street address. This field is optional.",
-                        "example": "1969 Roy Alley",
+                        "example": "567 East Cedar",
                         "type": "string"
                     },
                     "addressLine2": {
                         "nullable": true,
                         "description": "An optional additional field for the street address. This field is optional.",
-                        "example": "Apartment 2",
+                        "example": "Apartment 1",
                         "type": "string"
                     },
                     "city": {
                         "nullable": true,
                         "description": "The city, town, or village. This field is optional.",
-                        "example": "Palco",
+                        "example": "Liberal",
                         "type": "string"
                     },
                     "company": {
                         "nullable": true,
                         "description": "The company of the person associated with the address. This field is optional.",
-                        "example": "OPTDEAL LIMITED.",
+                        "example": "Acme, Inc.",
                         "type": "string"
                     },
                     "country": {
@@ -27277,19 +26852,19 @@
                     "firstName": {
                         "nullable": true,
                         "description": "The first name of the person associated with the address. This field is optional.",
-                        "example": "Tanisha",
+                        "example": "Dorothy",
                         "type": "string"
                     },
                     "lastName": {
                         "nullable": true,
                         "description": "The last name of the person associated with the address. This field is optional.",
-                        "example": "Simmons",
+                        "example": "Gale",
                         "type": "string"
                     },
                     "postcode": {
                         "nullable": true,
                         "description": "The postal code (zip, postcode, Eircode, \u2026). This field is optional.",
-                        "example": 67657,
+                        "example": 67901,
                         "type": "string"
                     },
                     "state": {
@@ -27306,25 +26881,25 @@
                     "addressLine1": {
                         "nullable": true,
                         "description": "The street address. This field is optional.",
-                        "example": "1969 Roy Alley",
+                        "example": "567 East Cedar",
                         "type": "string"
                     },
                     "addressLine2": {
                         "nullable": true,
                         "description": "An optional additional field for the street address. This field is optional.",
-                        "example": "Apartment 2",
+                        "example": "Apartment 1",
                         "type": "string"
                     },
                     "city": {
                         "nullable": true,
                         "description": "The city, town, or village. This field is optional.",
-                        "example": "Palco",
+                        "example": "Liberal",
                         "type": "string"
                     },
                     "company": {
                         "nullable": true,
                         "description": "The company of the person associated with the address. This field is optional.",
-                        "example": "OPTDEAL LIMITED.",
+                        "example": "Acme, Inc.",
                         "type": "string"
                     },
                     "country": {
@@ -27342,100 +26917,19 @@
                     "firstName": {
                         "nullable": true,
                         "description": "The first name of the person associated with the address. This field is optional.",
-                        "example": "Tanisha",
+                        "example": "Dorothy",
                         "type": "string"
                     },
                     "lastName": {
                         "nullable": true,
                         "description": "The last name of the person associated with the address. This field is optional.",
-                        "example": "Simmons",
+                        "example": "Gale",
                         "type": "string"
                     },
                     "postcode": {
                         "nullable": true,
                         "description": "The postal code (zip, postcode, Eircode, \u2026). This field is optional.",
-                        "example": 67657,
-                        "type": "string"
-                    },
-                    "state": {
-                        "nullable": true,
-                        "description": "The name of the region (province, state, prefecture, \u2026). This field is optional.",
-                        "example": "Kansas",
-                        "type": "string"
-                    }
-                }
-            },
-            "Address:jsonld": {
-                "type": "object",
-                "properties": {
-                    "@context": {
-                        "readOnly": true,
-                        "type": "string"
-                    },
-                    "@id": {
-                        "readOnly": true,
-                        "type": "string"
-                    },
-                    "@type": {
-                        "readOnly": true,
-                        "type": "string"
-                    },
-                    "empty": {
-                        "readOnly": true,
-                        "type": "boolean"
-                    },
-                    "addressLine1": {
-                        "nullable": true,
-                        "description": "The street address. This field is optional.",
-                        "example": "1969 Roy Alley",
-                        "type": "string"
-                    },
-                    "addressLine2": {
-                        "nullable": true,
-                        "description": "An optional additional field for the street address. This field is optional.",
-                        "example": "Apartment 2",
-                        "type": "string"
-                    },
-                    "city": {
-                        "nullable": true,
-                        "description": "The city, town, or village. This field is optional.",
-                        "example": "Palco",
-                        "type": "string"
-                    },
-                    "company": {
-                        "nullable": true,
-                        "description": "The company of the person associated with the address. This field is optional.",
-                        "example": "OPTDEAL LIMITED.",
-                        "type": "string"
-                    },
-                    "country": {
-                        "nullable": true,
-                        "description": "The name of the country. This field is optional.",
-                        "example": "United States",
-                        "type": "string"
-                    },
-                    "countryIso2": {
-                        "nullable": true,
-                        "description": "The two-letter country code. This field is optional.",
-                        "example": "US",
-                        "type": "string"
-                    },
-                    "firstName": {
-                        "nullable": true,
-                        "description": "The first name of the person associated with the address. This field is optional.",
-                        "example": "Tanisha",
-                        "type": "string"
-                    },
-                    "lastName": {
-                        "nullable": true,
-                        "description": "The last name of the person associated with the address. This field is optional.",
-                        "example": "Simmons",
-                        "type": "string"
-                    },
-                    "postcode": {
-                        "nullable": true,
-                        "description": "The postal code (zip, postcode, Eircode, \u2026). This field is optional.",
-                        "example": 67657,
+                        "example": 67901,
                         "type": "string"
                     },
                     "state": {
@@ -27464,25 +26958,25 @@
                     "addressLine1": {
                         "nullable": true,
                         "description": "The street address. This field is optional.",
-                        "example": "1969 Roy Alley",
+                        "example": "567 East Cedar",
                         "type": "string"
                     },
                     "addressLine2": {
                         "nullable": true,
                         "description": "An optional additional field for the street address. This field is optional.",
-                        "example": "Apartment 2",
+                        "example": "Apartment 1",
                         "type": "string"
                     },
                     "city": {
                         "nullable": true,
                         "description": "The city, town, or village. This field is optional.",
-                        "example": "Palco",
+                        "example": "Liberal",
                         "type": "string"
                     },
                     "company": {
                         "nullable": true,
                         "description": "The company of the person associated with the address. This field is optional.",
-                        "example": "OPTDEAL LIMITED.",
+                        "example": "Acme, Inc.",
                         "type": "string"
                     },
                     "country": {
@@ -27500,19 +26994,19 @@
                     "firstName": {
                         "nullable": true,
                         "description": "The first name of the person associated with the address. This field is optional.",
-                        "example": "Tanisha",
+                        "example": "Dorothy",
                         "type": "string"
                     },
                     "lastName": {
                         "nullable": true,
                         "description": "The last name of the person associated with the address. This field is optional.",
-                        "example": "Simmons",
+                        "example": "Gale",
                         "type": "string"
                     },
                     "postcode": {
                         "nullable": true,
                         "description": "The postal code (zip, postcode, Eircode, \u2026). This field is optional.",
-                        "example": 67657,
+                        "example": 67901,
                         "type": "string"
                     },
                     "state": {
@@ -27541,25 +27035,25 @@
                     "addressLine1": {
                         "nullable": true,
                         "description": "The street address. This field is optional.",
-                        "example": "1969 Roy Alley",
+                        "example": "567 East Cedar",
                         "type": "string"
                     },
                     "addressLine2": {
                         "nullable": true,
                         "description": "An optional additional field for the street address. This field is optional.",
-                        "example": "Apartment 2",
+                        "example": "Apartment 1",
                         "type": "string"
                     },
                     "city": {
                         "nullable": true,
                         "description": "The city, town, or village. This field is optional.",
-                        "example": "Palco",
+                        "example": "Liberal",
                         "type": "string"
                     },
                     "company": {
                         "nullable": true,
                         "description": "The company of the person associated with the address. This field is optional.",
-                        "example": "OPTDEAL LIMITED.",
+                        "example": "Acme, Inc.",
                         "type": "string"
                     },
                     "country": {
@@ -27577,19 +27071,19 @@
                     "firstName": {
                         "nullable": true,
                         "description": "The first name of the person associated with the address. This field is optional.",
-                        "example": "Tanisha",
+                        "example": "Dorothy",
                         "type": "string"
                     },
                     "lastName": {
                         "nullable": true,
                         "description": "The last name of the person associated with the address. This field is optional.",
-                        "example": "Simmons",
+                        "example": "Gale",
                         "type": "string"
                     },
                     "postcode": {
                         "nullable": true,
                         "description": "The postal code (zip, postcode, Eircode, \u2026). This field is optional.",
-                        "example": 67657,
+                        "example": 67901,
                         "type": "string"
                     },
                     "state": {
@@ -27618,25 +27112,25 @@
                     "addressLine1": {
                         "nullable": true,
                         "description": "The street address. This field is optional.",
-                        "example": "1969 Roy Alley",
+                        "example": "567 East Cedar",
                         "type": "string"
                     },
                     "addressLine2": {
                         "nullable": true,
                         "description": "An optional additional field for the street address. This field is optional.",
-                        "example": "Apartment 2",
+                        "example": "Apartment 1",
                         "type": "string"
                     },
                     "city": {
                         "nullable": true,
                         "description": "The city, town, or village. This field is optional.",
-                        "example": "Palco",
+                        "example": "Liberal",
                         "type": "string"
                     },
                     "company": {
                         "nullable": true,
                         "description": "The company of the person associated with the address. This field is optional.",
-                        "example": "OPTDEAL LIMITED.",
+                        "example": "Acme, Inc.",
                         "type": "string"
                     },
                     "country": {
@@ -27654,19 +27148,19 @@
                     "firstName": {
                         "nullable": true,
                         "description": "The first name of the person associated with the address. This field is optional.",
-                        "example": "Tanisha",
+                        "example": "Dorothy",
                         "type": "string"
                     },
                     "lastName": {
                         "nullable": true,
                         "description": "The last name of the person associated with the address. This field is optional.",
-                        "example": "Simmons",
+                        "example": "Gale",
                         "type": "string"
                     },
                     "postcode": {
                         "nullable": true,
                         "description": "The postal code (zip, postcode, Eircode, \u2026). This field is optional.",
-                        "example": 67657,
+                        "example": 67901,
                         "type": "string"
                     },
                     "state": {
@@ -27695,25 +27189,25 @@
                     "addressLine1": {
                         "nullable": true,
                         "description": "The street address. This field is optional.",
-                        "example": "1969 Roy Alley",
+                        "example": "567 East Cedar",
                         "type": "string"
                     },
                     "addressLine2": {
                         "nullable": true,
                         "description": "An optional additional field for the street address. This field is optional.",
-                        "example": "Apartment 2",
+                        "example": "Apartment 1",
                         "type": "string"
                     },
                     "city": {
                         "nullable": true,
                         "description": "The city, town, or village. This field is optional.",
-                        "example": "Palco",
+                        "example": "Liberal",
                         "type": "string"
                     },
                     "company": {
                         "nullable": true,
                         "description": "The company of the person associated with the address. This field is optional.",
-                        "example": "OPTDEAL LIMITED.",
+                        "example": "Acme, Inc.",
                         "type": "string"
                     },
                     "country": {
@@ -27731,19 +27225,19 @@
                     "firstName": {
                         "nullable": true,
                         "description": "The first name of the person associated with the address. This field is optional.",
-                        "example": "Tanisha",
+                        "example": "Dorothy",
                         "type": "string"
                     },
                     "lastName": {
                         "nullable": true,
                         "description": "The last name of the person associated with the address. This field is optional.",
-                        "example": "Simmons",
+                        "example": "Gale",
                         "type": "string"
                     },
                     "postcode": {
                         "nullable": true,
                         "description": "The postal code (zip, postcode, Eircode, \u2026). This field is optional.",
-                        "example": 67657,
+                        "example": 67901,
                         "type": "string"
                     },
                     "state": {
@@ -30756,15 +30250,15 @@
                     "readonly": {
                         "read_only": true,
                         "type": "boolean",
-                        "description": "Determinates if the field is not writeable.",
-                        "example": false,
+                        "description": "Determines if the field is not writeable.",
+                        "example": "false",
                         "nullable": true
                     },
                     "sorting": {
                         "read_only": true,
                         "type": "boolean",
-                        "description": "Determinates if the field can be used for sorting.",
-                        "example": true,
+                        "description": "Determines if the field can be used for sorting.",
+                        "example": "true",
                         "nullable": true
                     },
                     "selectOptions": {
@@ -30780,14 +30274,14 @@
                     "visibleExpr": {
                         "read_only": true,
                         "description": "The expression that allows to determinate if field should be visible.",
-                        "example": null,
+                        "example": "authType===\"login\"",
                         "type": "string",
                         "nullable": true
                     },
                     "validation": {
                         "read_only": true,
                         "description": "The validation rules for the fields.",
-                        "example": "email",
+                        "example": "required|email",
                         "type": "string",
                         "nullable": true
                     },
@@ -30808,8 +30302,8 @@
                     "refreshOnChange": {
                         "read_only": true,
                         "type": "boolean",
-                        "description": "Determinates if the entity will be refreshed after field changes.",
-                        "example": true,
+                        "description": "Determines if the entity will be refreshed after field changes.",
+                        "example": "true",
                         "nullable": true
                     },
                     "helperText": {
@@ -30821,9 +30315,9 @@
                     },
                     "tags": {
                         "read_only": true,
-                        "type": "string[]",
                         "description": "The list of tags for the field.",
-                        "example": [],
+                        "example": "['emails']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
@@ -30939,15 +30433,15 @@
                     "readonly": {
                         "read_only": true,
                         "type": "boolean",
-                        "description": "Determinates if the field is not writeable.",
-                        "example": false,
+                        "description": "Determines if the field is not writeable.",
+                        "example": "false",
                         "nullable": true
                     },
                     "sorting": {
                         "read_only": true,
                         "type": "boolean",
-                        "description": "Determinates if the field can be used for sorting.",
-                        "example": true,
+                        "description": "Determines if the field can be used for sorting.",
+                        "example": "true",
                         "nullable": true
                     },
                     "selectOptions": {
@@ -30963,14 +30457,14 @@
                     "visibleExpr": {
                         "read_only": true,
                         "description": "The expression that allows to determinate if field should be visible.",
-                        "example": null,
+                        "example": "authType===\"login\"",
                         "type": "string",
                         "nullable": true
                     },
                     "validation": {
                         "read_only": true,
                         "description": "The validation rules for the fields.",
-                        "example": "email",
+                        "example": "required|email",
                         "type": "string",
                         "nullable": true
                     },
@@ -30991,8 +30485,8 @@
                     "refreshOnChange": {
                         "read_only": true,
                         "type": "boolean",
-                        "description": "Determinates if the entity will be refreshed after field changes.",
-                        "example": true,
+                        "description": "Determines if the entity will be refreshed after field changes.",
+                        "example": "true",
                         "nullable": true
                     },
                     "helperText": {
@@ -31004,9 +30498,9 @@
                     },
                     "tags": {
                         "read_only": true,
-                        "type": "string[]",
                         "description": "The list of tags for the field.",
-                        "example": [],
+                        "example": "['emails']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
@@ -32869,21 +32363,21 @@
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the order in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the order in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wo_1001",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceUrl": {
                         "format": "URL",
-                        "description": "The url of the order in customer store.",
+                        "description": "The url of the order in ecommerce store.",
                         "example": "http://my-store.com/admin/orders/wo_1001",
                         "type": "string",
                         "nullable": true
@@ -32923,7 +32417,7 @@
                     "email": {
                         "format": "email",
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -32938,24 +32432,21 @@
                     },
                     "createdAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the order was created.",
+                        "description": "The date and time (in ISO-8601 format) when the order was created.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "updatedAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the order was updated.",
+                        "description": "The date and time (in ISO-8601 format) when the order was updated.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "shipments": {
-                        "format": "string[]",
                         "description": "List of [shipment](/docs/Shipment/shipment.html) references that belong to the order.",
-                        "example": [
-                            "/shipments/cbe5589f-8869-4a9c-9d9c-3d7f70d66878"
-                        ],
+                        "example": "[\"/shipments/cbe5589f-8869-4a9c-9d9c-3d7f70d66878\"]\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -32974,7 +32465,7 @@
                     },
                     "fulfillmentStatus": {
                         "read_only": true,
-                        "description": "The fulfillment status code (not_fulfilled|partial|fulfilled|restocked). The calculation is based on **qty** and **fulfilledQty** properties of children order items.\n",
+                        "description": "The fulfillment status code. The calculation is based on **qty** and **fulfilledQty** properties\nof children order items.\n- **not_fulfilled** - order does not contain any shipped order items\n- **partial** - order contains at least one shipped order item, and at least one not shipped order item\n- **fulfilled** - all order items of the order are shipped\n",
                         "example": "partial",
                         "type": "string",
                         "nullable": true
@@ -33009,21 +32500,21 @@
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the order in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the order in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wo_1001",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceUrl": {
                         "format": "URL",
-                        "description": "The url of the order in customer store.",
+                        "description": "The url of the order in ecommerce store.",
                         "example": "http://my-store.com/admin/orders/wo_1001",
                         "type": "string",
                         "nullable": true
@@ -33063,7 +32554,7 @@
                     "email": {
                         "format": "email",
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -33078,14 +32569,14 @@
                     },
                     "createdAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the order was created.",
+                        "description": "The date and time (in ISO-8601 format) when the order was created.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "updatedAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the order was updated.",
+                        "description": "The date and time (in ISO-8601 format) when the order was updated.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
@@ -33102,7 +32593,7 @@
                     },
                     "fulfillmentStatus": {
                         "read_only": true,
-                        "description": "The fulfillment status code (not_fulfilled|partial|fulfilled|restocked). The calculation is based on **qty** and **fulfilledQty** properties of children order items.\n",
+                        "description": "The fulfillment status code. The calculation is based on **qty** and **fulfilledQty** properties\nof children order items.\n- **not_fulfilled** - order does not contain any shipped order items\n- **partial** - order contains at least one shipped order item, and at least one not shipped order item\n- **fulfilled** - all order items of the order are shipped\n",
                         "example": "partial",
                         "type": "string",
                         "nullable": true
@@ -33137,21 +32628,21 @@
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the order in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the order in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wo_1001",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceUrl": {
                         "format": "URL",
-                        "description": "The url of the order in customer store.",
+                        "description": "The url of the order in ecommerce store.",
                         "example": "http://my-store.com/admin/orders/wo_1001",
                         "type": "string",
                         "nullable": true
@@ -33191,7 +32682,7 @@
                     "email": {
                         "format": "email",
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -33205,11 +32696,8 @@
                         "nullable": true
                     },
                     "shipments": {
-                        "format": "string[]",
                         "description": "List of [shipment](/docs/Shipment/shipment.html) references that belong to the order.",
-                        "example": [
-                            "/shipments/cbe5589f-8869-4a9c-9d9c-3d7f70d66878"
-                        ],
+                        "example": "[\"/shipments/cbe5589f-8869-4a9c-9d9c-3d7f70d66878\"]\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -33261,7 +32749,7 @@
                     "email": {
                         "format": "email",
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -33275,11 +32763,8 @@
                         "nullable": true
                     },
                     "shipments": {
-                        "format": "string[]",
                         "description": "List of [shipment](/docs/Shipment/shipment.html) references that belong to the order.",
-                        "example": [
-                            "/shipments/cbe5589f-8869-4a9c-9d9c-3d7f70d66878"
-                        ],
+                        "example": "[\"/shipments/cbe5589f-8869-4a9c-9d9c-3d7f70d66878\"]\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -33331,21 +32816,21 @@
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the order in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the order in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wo_1001",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceUrl": {
                         "format": "URL",
-                        "description": "The url of the order in customer store.",
+                        "description": "The url of the order in ecommerce store.",
                         "example": "http://my-store.com/admin/orders/wo_1001",
                         "type": "string",
                         "nullable": true
@@ -33385,7 +32870,7 @@
                     "email": {
                         "format": "email",
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -33400,24 +32885,21 @@
                     },
                     "createdAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the order was created.",
+                        "description": "The date and time (in ISO-8601 format) when the order was created.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "updatedAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the order was updated.",
+                        "description": "The date and time (in ISO-8601 format) when the order was updated.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "shipments": {
-                        "format": "string[]",
                         "description": "List of [shipment](/docs/Shipment/shipment.html) references that belong to the order.",
-                        "example": [
-                            "/shipments/cbe5589f-8869-4a9c-9d9c-3d7f70d66878"
-                        ],
+                        "example": "[\"/shipments/cbe5589f-8869-4a9c-9d9c-3d7f70d66878\"]\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -33436,7 +32918,7 @@
                     },
                     "fulfillmentStatus": {
                         "read_only": true,
-                        "description": "The fulfillment status code (not_fulfilled|partial|fulfilled|restocked). The calculation is based on **qty** and **fulfilledQty** properties of children order items.\n",
+                        "description": "The fulfillment status code. The calculation is based on **qty** and **fulfilledQty** properties\nof children order items.\n- **not_fulfilled** - order does not contain any shipped order items\n- **partial** - order contains at least one shipped order item, and at least one not shipped order item\n- **fulfilled** - all order items of the order are shipped\n",
                         "example": "partial",
                         "type": "string",
                         "nullable": true
@@ -33479,21 +32961,21 @@
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the order in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the order in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wo_1001",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceUrl": {
                         "format": "URL",
-                        "description": "The url of the order in customer store.",
+                        "description": "The url of the order in ecommerce store.",
                         "example": "http://my-store.com/admin/orders/wo_1001",
                         "type": "string",
                         "nullable": true
@@ -33533,7 +33015,7 @@
                     "email": {
                         "format": "email",
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -33548,14 +33030,14 @@
                     },
                     "createdAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the order was created.",
+                        "description": "The date and time (in ISO-8601 format) when the order was created.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "updatedAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the order was updated.",
+                        "description": "The date and time (in ISO-8601 format) when the order was updated.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
@@ -33572,7 +33054,7 @@
                     },
                     "fulfillmentStatus": {
                         "read_only": true,
-                        "description": "The fulfillment status code (not_fulfilled|partial|fulfilled|restocked). The calculation is based on **qty** and **fulfilledQty** properties of children order items.\n",
+                        "description": "The fulfillment status code. The calculation is based on **qty** and **fulfilledQty** properties\nof children order items.\n- **not_fulfilled** - order does not contain any shipped order items\n- **partial** - order contains at least one shipped order item, and at least one not shipped order item\n- **fulfilled** - all order items of the order are shipped\n",
                         "example": "partial",
                         "type": "string",
                         "nullable": true
@@ -33619,21 +33101,21 @@
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the order in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the order in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wo_1001",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceUrl": {
                         "format": "URL",
-                        "description": "The url of the order in customer store.",
+                        "description": "The url of the order in ecommerce store.",
                         "example": "http://my-store.com/admin/orders/wo_1001",
                         "type": "string",
                         "nullable": true
@@ -33673,7 +33155,7 @@
                     "email": {
                         "format": "email",
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -33687,11 +33169,8 @@
                         "nullable": true
                     },
                     "shipments": {
-                        "format": "string[]",
                         "description": "List of [shipment](/docs/Shipment/shipment.html) references that belong to the order.",
-                        "example": [
-                            "/shipments/cbe5589f-8869-4a9c-9d9c-3d7f70d66878"
-                        ],
+                        "example": "[\"/shipments/cbe5589f-8869-4a9c-9d9c-3d7f70d66878\"]\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -33755,7 +33234,7 @@
                     "email": {
                         "format": "email",
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -33769,11 +33248,8 @@
                         "nullable": true
                     },
                     "shipments": {
-                        "format": "string[]",
                         "description": "List of [shipment](/docs/Shipment/shipment.html) references that belong to the order.",
-                        "example": [
-                            "/shipments/cbe5589f-8869-4a9c-9d9c-3d7f70d66878"
-                        ],
+                        "example": "[\"/shipments/cbe5589f-8869-4a9c-9d9c-3d7f70d66878\"]\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -33817,9 +33293,9 @@
                         "nullable": true
                     },
                     "productOptions": {
-                        "type": "string[]",
                         "description": "The list of product custom options (size, color, weight, etc.) in the form OPTION_CODE => OPTION_VALUE.",
                         "example": "['size'=>'L', 'color'=>'black', 'fabric'=>'leather']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
@@ -33838,24 +33314,24 @@
                     },
                     "rowTotal": {
                         "description": "The amount of the purchased item in the shop currency. Calculated as **qty * price**.",
-                        "example": 199.9,
+                        "example": "199.90",
                         "type": "string",
                         "nullable": true
                     },
                     "externalProductId": {
-                        "description": "The id of the product in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the product in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_001245",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the order item in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the order item in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "woi_123456",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
@@ -33877,7 +33353,7 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The link to a product image in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The link to a product image in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "http://my-store.com/media/catalog/black-leather-jacket.jpg",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -33934,9 +33410,9 @@
                         "nullable": true
                     },
                     "productOptions": {
-                        "type": "string[]",
                         "description": "The list of product custom options (size, color, weight, etc.) in the form OPTION_CODE => OPTION_VALUE.",
                         "example": "['size'=>'L', 'color'=>'black', 'fabric'=>'leather']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
@@ -33955,24 +33431,24 @@
                     },
                     "rowTotal": {
                         "description": "The amount of the purchased item in the shop currency. Calculated as **qty * price**.",
-                        "example": 199.9,
+                        "example": "199.90",
                         "type": "string",
                         "nullable": true
                     },
                     "externalProductId": {
-                        "description": "The id of the product in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the product in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_001245",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the order item in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the order item in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "woi_123456",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
@@ -33994,7 +33470,7 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The link to a product image in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The link to a product image in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "http://my-store.com/media/catalog/black-leather-jacket.jpg",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -34026,9 +33502,9 @@
                         "nullable": true
                     },
                     "productOptions": {
-                        "type": "string[]",
                         "description": "The list of product custom options (size, color, weight, etc.) in the form OPTION_CODE => OPTION_VALUE.",
                         "example": "['size'=>'L', 'color'=>'black', 'fabric'=>'leather']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
@@ -34047,19 +33523,19 @@
                     },
                     "rowTotal": {
                         "description": "The amount of the purchased item in the shop currency. Calculated as **qty * price**.",
-                        "example": 199.9,
+                        "example": "199.90",
                         "type": "string",
                         "nullable": true
                     },
                     "externalProductId": {
-                        "description": "The id of the product in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the product in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_001245",
                         "type": "string",
                         "nullable": true
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The link to a product image in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The link to a product image in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "http://my-store.com/media/catalog/black-leather-jacket.jpg",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -34112,9 +33588,9 @@
                         "nullable": true
                     },
                     "productOptions": {
-                        "type": "string[]",
                         "description": "The list of product custom options (size, color, weight, etc.) in the form OPTION_CODE => OPTION_VALUE.",
                         "example": "['size'=>'L', 'color'=>'black', 'fabric'=>'leather']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
@@ -34133,24 +33609,24 @@
                     },
                     "rowTotal": {
                         "description": "The amount of the purchased item in the shop currency. Calculated as **qty * price**.",
-                        "example": 199.9,
+                        "example": "199.90",
                         "type": "string",
                         "nullable": true
                     },
                     "externalProductId": {
-                        "description": "The id of the product in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the product in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_001245",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the order item in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the order item in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "woi_123456",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
@@ -34172,7 +33648,7 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The link to a product image in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The link to a product image in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "http://my-store.com/media/catalog/black-leather-jacket.jpg",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -34241,9 +33717,9 @@
                         "nullable": true
                     },
                     "productOptions": {
-                        "type": "string[]",
                         "description": "The list of product custom options (size, color, weight, etc.) in the form OPTION_CODE => OPTION_VALUE.",
                         "example": "['size'=>'L', 'color'=>'black', 'fabric'=>'leather']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
@@ -34262,24 +33738,24 @@
                     },
                     "rowTotal": {
                         "description": "The amount of the purchased item in the shop currency. Calculated as **qty * price**.",
-                        "example": 199.9,
+                        "example": "199.90",
                         "type": "string",
                         "nullable": true
                     },
                     "externalProductId": {
-                        "description": "The id of the product in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the product in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_001245",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the order item in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the order item in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "woi_123456",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
@@ -34301,7 +33777,7 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The link to a product image in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The link to a product image in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "http://my-store.com/media/catalog/black-leather-jacket.jpg",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -34345,9 +33821,9 @@
                         "nullable": true
                     },
                     "productOptions": {
-                        "type": "string[]",
                         "description": "The list of product custom options (size, color, weight, etc.) in the form OPTION_CODE => OPTION_VALUE.",
                         "example": "['size'=>'L', 'color'=>'black', 'fabric'=>'leather']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
@@ -34366,19 +33842,19 @@
                     },
                     "rowTotal": {
                         "description": "The amount of the purchased item in the shop currency. Calculated as **qty * price**.",
-                        "example": 199.9,
+                        "example": "199.90",
                         "type": "string",
                         "nullable": true
                     },
                     "externalProductId": {
-                        "description": "The id of the product in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the product in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_001245",
                         "type": "string",
                         "nullable": true
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The link to a product image in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The link to a product image in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "http://my-store.com/media/catalog/black-leather-jacket.jpg",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -34588,7 +34064,7 @@
                     },
                     "originUrl": {
                         "format": "URL",
-                        "description": "The URL of product in the customer store.",
+                        "description": "The URL of product in the ecommerce store.",
                         "example": "http://my-store/products/jacket",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -34598,30 +34074,27 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product image in the customer store.",
+                        "description": "The URL of product image in the ecommerce store.",
                         "example": "http://my-store/media/products/jacket.jpg",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_00001",
                         "type": "string",
                         "nullable": true
                     },
                     "productVariants": {
                         "description": "List of [product variant](/docs/Product/product-variant.html) references that belong to the product.",
-                        "example": [
-                            "/product_variants/cbe5589f-8869-4a9c-9d9c-3d7f70d66878",
-                            "/product_variants/3eb2f084-ea29-41ed-9bfb-691381bd7511"
-                        ],
+                        "example": "['/product_variants/cbe5589f-8869-4a9c-9d9c-3d7f70d66878', '/product_variants/3eb2f084-ea29-41ed-9bfb-691381bd7511']\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -34663,7 +34136,7 @@
                     },
                     "originUrl": {
                         "format": "URL",
-                        "description": "The URL of product in the customer store.",
+                        "description": "The URL of product in the ecommerce store.",
                         "example": "http://my-store/products/jacket",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -34673,30 +34146,27 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product image in the customer store.",
+                        "description": "The URL of product image in the ecommerce store.",
                         "example": "http://my-store/media/products/jacket.jpg",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_00001",
                         "type": "string",
                         "nullable": true
                     },
                     "productVariants": {
                         "description": "List of [product variant](/docs/Product/product-variant.html) references that belong to the product.",
-                        "example": [
-                            "/product_variants/cbe5589f-8869-4a9c-9d9c-3d7f70d66878",
-                            "/product_variants/3eb2f084-ea29-41ed-9bfb-691381bd7511"
-                        ],
+                        "example": "['/product_variants/cbe5589f-8869-4a9c-9d9c-3d7f70d66878', '/product_variants/3eb2f084-ea29-41ed-9bfb-691381bd7511']\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -34738,7 +34208,7 @@
                     },
                     "originUrl": {
                         "format": "URL",
-                        "description": "The URL of product in the customer store.",
+                        "description": "The URL of product in the ecommerce store.",
                         "example": "http://my-store/products/jacket",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -34748,20 +34218,20 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product image in the customer store.",
+                        "description": "The URL of product image in the ecommerce store.",
                         "example": "http://my-store/media/products/jacket.jpg",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_00001",
                         "type": "string",
                         "nullable": true
@@ -34785,7 +34255,7 @@
                     },
                     "originUrl": {
                         "format": "URL",
-                        "description": "The URL of product in the customer store.",
+                        "description": "The URL of product in the ecommerce store.",
                         "example": "http://my-store/products/jacket",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -34795,7 +34265,7 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product image in the customer store.",
+                        "description": "The URL of product image in the ecommerce store.",
                         "example": "http://my-store/media/products/jacket.jpg",
                         "type": "string",
                         "nullable": true
@@ -34840,7 +34310,7 @@
                     },
                     "originUrl": {
                         "format": "URL",
-                        "description": "The URL of product in the customer store.",
+                        "description": "The URL of product in the ecommerce store.",
                         "example": "http://my-store/products/jacket",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -34850,30 +34320,27 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product image in the customer store.",
+                        "description": "The URL of product image in the ecommerce store.",
                         "example": "http://my-store/media/products/jacket.jpg",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_00001",
                         "type": "string",
                         "nullable": true
                     },
                     "productVariants": {
                         "description": "List of [product variant](/docs/Product/product-variant.html) references that belong to the product.",
-                        "example": [
-                            "/product_variants/cbe5589f-8869-4a9c-9d9c-3d7f70d66878",
-                            "/product_variants/3eb2f084-ea29-41ed-9bfb-691381bd7511"
-                        ],
+                        "example": "['/product_variants/cbe5589f-8869-4a9c-9d9c-3d7f70d66878', '/product_variants/3eb2f084-ea29-41ed-9bfb-691381bd7511']\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -34923,7 +34390,7 @@
                     },
                     "originUrl": {
                         "format": "URL",
-                        "description": "The URL of product in the customer store.",
+                        "description": "The URL of product in the ecommerce store.",
                         "example": "http://my-store/products/jacket",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -34933,30 +34400,27 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product image in the customer store.",
+                        "description": "The URL of product image in the ecommerce store.",
                         "example": "http://my-store/media/products/jacket.jpg",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_00001",
                         "type": "string",
                         "nullable": true
                     },
                     "productVariants": {
                         "description": "List of [product variant](/docs/Product/product-variant.html) references that belong to the product.",
-                        "example": [
-                            "/product_variants/cbe5589f-8869-4a9c-9d9c-3d7f70d66878",
-                            "/product_variants/3eb2f084-ea29-41ed-9bfb-691381bd7511"
-                        ],
+                        "example": "['/product_variants/cbe5589f-8869-4a9c-9d9c-3d7f70d66878', '/product_variants/3eb2f084-ea29-41ed-9bfb-691381bd7511']\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -35010,7 +34474,7 @@
                     },
                     "originUrl": {
                         "format": "URL",
-                        "description": "The URL of product in the customer store.",
+                        "description": "The URL of product in the ecommerce store.",
                         "example": "http://my-store/products/jacket",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -35020,20 +34484,20 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product image in the customer store.",
+                        "description": "The URL of product image in the ecommerce store.",
                         "example": "http://my-store/media/products/jacket.jpg",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_00001",
                         "type": "string",
                         "nullable": true
@@ -35069,7 +34533,7 @@
                     },
                     "originUrl": {
                         "format": "URL",
-                        "description": "The URL of product in the customer store.",
+                        "description": "The URL of product in the ecommerce store.",
                         "example": "http://my-store/products/jacket",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -35079,7 +34543,7 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product image in the customer store.",
+                        "description": "The URL of product image in the ecommerce store.",
                         "example": "http://my-store/media/products/jacket.jpg",
                         "type": "string",
                         "nullable": true
@@ -35107,7 +34571,7 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product variant image in the customer store.",
+                        "description": "The URL of product variant image in the ecommerce store.",
                         "example": "http://my-store/media/products/variants/jacket-black.jpg",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -35128,14 +34592,14 @@
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_00001",
                         "type": "string",
                         "nullable": true
@@ -35170,7 +34634,7 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product variant image in the customer store.",
+                        "description": "The URL of product variant image in the ecommerce store.",
                         "example": "http://my-store/media/products/variants/jacket-black.jpg",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -35191,14 +34655,14 @@
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_00001",
                         "type": "string",
                         "nullable": true
@@ -35210,7 +34674,7 @@
                 "properties": {
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product variant image in the customer store.",
+                        "description": "The URL of product variant image in the ecommerce store.",
                         "example": "http://my-store/media/products/variants/jacket-black.jpg",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -35259,7 +34723,7 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product variant image in the customer store.",
+                        "description": "The URL of product variant image in the ecommerce store.",
                         "example": "http://my-store/media/products/variants/jacket-black.jpg",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -35280,14 +34744,14 @@
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_00001",
                         "type": "string",
                         "nullable": true
@@ -35334,7 +34798,7 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product variant image in the customer store.",
+                        "description": "The URL of product variant image in the ecommerce store.",
                         "example": "http://my-store/media/products/variants/jacket-black.jpg",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -35355,14 +34819,14 @@
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wp_00001",
                         "type": "string",
                         "nullable": true
@@ -35386,7 +34850,7 @@
                     },
                     "imageUrl": {
                         "format": "URL",
-                        "description": "The URL of product variant image in the customer store.",
+                        "description": "The URL of product variant image in the ecommerce store.",
                         "example": "http://my-store/media/products/variants/jacket-black.jpg",
                         "externalDocs": {
                             "url": "http://schema.org/url"
@@ -35584,19 +35048,16 @@
                         "nullable": true
                     },
                     "orderNumbers": {
-                        "type": "string[]",
                         "description": "List of order numbers to which the shipment belongs.",
-                        "example": [
-                            "ON1",
-                            "ON2"
-                        ],
+                        "example": "['ON1', 'ON2']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
                     },
                     "email": {
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -35611,20 +35072,20 @@
                     },
                     "daysInTransit": {
                         "read_only": true,
-                        "description": "The number of days from the moment of sending to receiving of the parsel.",
+                        "description": "The number of days from the moment of sending to receiving of the parcel. The \"Days in Transit\" is the number of days from which the parcel transitioned into an active in-transit status. So once a parcel reaches end status or finite status, something like delivered or canceled or error or other finite states or return back to the sender (that is also finite state) then the days in transit calculation is no longer applied. So we're calculating the days when the parcel actually in transit. That's exactly what it is.\n",
                         "example": 3,
                         "type": "integer",
                         "nullable": true
                     },
                     "daysInIdle": {
                         "read_only": true,
-                        "description": "Days In Idle is counted only when the parcel is not tracked / not sent and is in No Info status.",
+                        "description": "This field is calculated based on idle statuses or the statuses when the shipment actually was created, but it doesn't have a tracking number. So this is a pre-shipment state, or pre-transit state, no info state, whenever we are actually ordering the parcels from a supplier and we don't have confirmation from their end or the tracking number for the parcel. Once the parcel transitions to an in-transit state or other active statuses or any finite statuses, then the  \"days in idle\" counter stops to be calculated.\n",
                         "example": 10,
                         "type": "integer",
                         "nullable": true
                     },
                     "originCarrier": {
-                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload.\n",
+                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload. The value of this field can be specified only once in POST request.\n",
                         "example": "china-post",
                         "type": "string",
                         "nullable": true
@@ -35666,7 +35127,7 @@
                     },
                     "shippedAt": {
                         "read_only": "true,",
-                        "description": "Shipment dispatch date is expressed in UTC (Coordinated Universal Time).",
+                        "description": "Shipment dispatch date (in ISO-8601 format).",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time",
@@ -35674,7 +35135,7 @@
                     },
                     "expectedDeliveryDate": {
                         "read_only": "true,",
-                        "description": "Shipment expected delivery date is expressed in UTC (Coordinated Universal Time)",
+                        "description": "Shipment expected delivery date (in ISO-8601 format).",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time",
@@ -35682,21 +35143,21 @@
                     },
                     "createdAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the shipment was created.",
+                        "description": "The date and time (in ISO-8601 format) when the shipment was created.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "updatedAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the shipment was updated.",
+                        "description": "The date and time (in ISO-8601 format) when the shipment was updated.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "lastStatusUpdate": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the tracking status was updated.",
+                        "description": "The date and time (in ISO-8601 format) when the tracking status was updated.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time",
@@ -35719,9 +35180,7 @@
                     },
                     "orders": {
                         "description": "List of order references to which the shipment belongs.",
-                        "example": [
-                            "/orders/cbe5589f-8869-4a9c-9d9c-3d7f70d66878"
-                        ],
+                        "example": "['/orders/cbe5589f-8869-4a9c-9d9c-3d7f70d66878']\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -35730,10 +35189,7 @@
                     },
                     "shipmentItems": {
                         "description": "List of shipment items references that belong to the shipment.",
-                        "example": [
-                            "/shipment_items/cbe5589f-8869-4a9c-9d9c-3d7f70d66878",
-                            "/shipment_items/3eb2f084-ea29-41ed-9bfb-691381bd7511"
-                        ],
+                        "example": "[\n    '/shipment_items/cbe5589f-8869-4a9c-9d9c-3d7f70d66878',\n    '/shipment_items/3eb2f084-ea29-41ed-9bfb-691381bd7511'\n]\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -35741,14 +35197,14 @@
                         }
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "ws_123456",
                         "type": "string",
                         "nullable": true
@@ -35810,19 +35266,16 @@
                         "nullable": true
                     },
                     "orderNumbers": {
-                        "type": "string[]",
                         "description": "List of order numbers to which the shipment belongs.",
-                        "example": [
-                            "ON1",
-                            "ON2"
-                        ],
+                        "example": "['ON1', 'ON2']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
                     },
                     "email": {
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -35837,20 +35290,20 @@
                     },
                     "daysInTransit": {
                         "read_only": true,
-                        "description": "The number of days from the moment of sending to receiving of the parsel.",
+                        "description": "The number of days from the moment of sending to receiving of the parcel. The \"Days in Transit\" is the number of days from which the parcel transitioned into an active in-transit status. So once a parcel reaches end status or finite status, something like delivered or canceled or error or other finite states or return back to the sender (that is also finite state) then the days in transit calculation is no longer applied. So we're calculating the days when the parcel actually in transit. That's exactly what it is.\n",
                         "example": 3,
                         "type": "integer",
                         "nullable": true
                     },
                     "daysInIdle": {
                         "read_only": true,
-                        "description": "Days In Idle is counted only when the parcel is not tracked / not sent and is in No Info status.",
+                        "description": "This field is calculated based on idle statuses or the statuses when the shipment actually was created, but it doesn't have a tracking number. So this is a pre-shipment state, or pre-transit state, no info state, whenever we are actually ordering the parcels from a supplier and we don't have confirmation from their end or the tracking number for the parcel. Once the parcel transitions to an in-transit state or other active statuses or any finite statuses, then the  \"days in idle\" counter stops to be calculated.\n",
                         "example": 10,
                         "type": "integer",
                         "nullable": true
                     },
                     "originCarrier": {
-                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload.\n",
+                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload. The value of this field can be specified only once in POST request.\n",
                         "example": "china-post",
                         "type": "string",
                         "nullable": true
@@ -35892,7 +35345,7 @@
                     },
                     "shippedAt": {
                         "read_only": "true,",
-                        "description": "Shipment dispatch date is expressed in UTC (Coordinated Universal Time).",
+                        "description": "Shipment dispatch date (in ISO-8601 format).",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time",
@@ -35900,7 +35353,7 @@
                     },
                     "expectedDeliveryDate": {
                         "read_only": "true,",
-                        "description": "Shipment expected delivery date is expressed in UTC (Coordinated Universal Time)",
+                        "description": "Shipment expected delivery date (in ISO-8601 format).",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time",
@@ -35908,21 +35361,21 @@
                     },
                     "createdAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the shipment was created.",
+                        "description": "The date and time (in ISO-8601 format) when the shipment was created.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "updatedAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the shipment was updated.",
+                        "description": "The date and time (in ISO-8601 format) when the shipment was updated.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "lastStatusUpdate": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the tracking status was updated.",
+                        "description": "The date and time (in ISO-8601 format) when the tracking status was updated.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time",
@@ -35944,14 +35397,14 @@
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "ws_123456",
                         "type": "string",
                         "nullable": true
@@ -36005,19 +35458,16 @@
                         "nullable": true
                     },
                     "orderNumbers": {
-                        "type": "string[]",
                         "description": "List of order numbers to which the shipment belongs.",
-                        "example": [
-                            "ON1",
-                            "ON2"
-                        ],
+                        "example": "['ON1', 'ON2']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
                     },
                     "email": {
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -36031,7 +35481,7 @@
                         "nullable": true
                     },
                     "originCarrier": {
-                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload.\n",
+                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload. The value of this field can be specified only once in POST request.\n",
                         "example": "china-post",
                         "type": "string",
                         "nullable": true
@@ -36044,9 +35494,7 @@
                     },
                     "orders": {
                         "description": "List of order references to which the shipment belongs.",
-                        "example": [
-                            "/orders/cbe5589f-8869-4a9c-9d9c-3d7f70d66878"
-                        ],
+                        "example": "['/orders/cbe5589f-8869-4a9c-9d9c-3d7f70d66878']\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -36055,24 +35503,21 @@
                     },
                     "shipmentItems": {
                         "description": "List of shipment items references that belong to the shipment.",
-                        "example": [
-                            "/shipment_items/cbe5589f-8869-4a9c-9d9c-3d7f70d66878",
-                            "/shipment_items/3eb2f084-ea29-41ed-9bfb-691381bd7511"
-                        ],
+                        "example": "[\n    '/shipment_items/cbe5589f-8869-4a9c-9d9c-3d7f70d66878',\n    '/shipment_items/3eb2f084-ea29-41ed-9bfb-691381bd7511'\n]\n",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ShipmentItem-Post"
                         }
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "ws_123456",
                         "type": "string",
                         "nullable": true
@@ -36119,19 +35564,16 @@
                         "nullable": true
                     },
                     "orderNumbers": {
-                        "type": "string[]",
                         "description": "List of order numbers to which the shipment belongs.",
-                        "example": [
-                            "ON1",
-                            "ON2"
-                        ],
+                        "example": "['ON1', 'ON2']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
                     },
                     "email": {
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -36145,16 +35587,14 @@
                         "nullable": true
                     },
                     "originCarrier": {
-                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload.\n",
+                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload. The value of this field can be specified only once in POST request.\n",
                         "example": "china-post",
                         "type": "string",
                         "nullable": true
                     },
                     "orders": {
                         "description": "List of order references to which the shipment belongs.",
-                        "example": [
-                            "/orders/cbe5589f-8869-4a9c-9d9c-3d7f70d66878"
-                        ],
+                        "example": "['/orders/cbe5589f-8869-4a9c-9d9c-3d7f70d66878']\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -36163,10 +35603,7 @@
                     },
                     "shipmentItems": {
                         "description": "List of shipment items references that belong to the shipment.",
-                        "example": [
-                            "/shipment_items/cbe5589f-8869-4a9c-9d9c-3d7f70d66878",
-                            "/shipment_items/3eb2f084-ea29-41ed-9bfb-691381bd7511"
-                        ],
+                        "example": "[\n    '/shipment_items/cbe5589f-8869-4a9c-9d9c-3d7f70d66878',\n    '/shipment_items/3eb2f084-ea29-41ed-9bfb-691381bd7511'\n]\n",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ShipmentItem-Put"
@@ -36218,19 +35655,16 @@
                         "nullable": true
                     },
                     "orderNumbers": {
-                        "type": "string[]",
                         "description": "List of order numbers to which the shipment belongs.",
-                        "example": [
-                            "ON1",
-                            "ON2"
-                        ],
+                        "example": "['ON1', 'ON2']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
                     },
                     "email": {
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -36245,20 +35679,20 @@
                     },
                     "daysInTransit": {
                         "read_only": true,
-                        "description": "The number of days from the moment of sending to receiving of the parsel.",
+                        "description": "The number of days from the moment of sending to receiving of the parcel. The \"Days in Transit\" is the number of days from which the parcel transitioned into an active in-transit status. So once a parcel reaches end status or finite status, something like delivered or canceled or error or other finite states or return back to the sender (that is also finite state) then the days in transit calculation is no longer applied. So we're calculating the days when the parcel actually in transit. That's exactly what it is.\n",
                         "example": 3,
                         "type": "integer",
                         "nullable": true
                     },
                     "daysInIdle": {
                         "read_only": true,
-                        "description": "Days In Idle is counted only when the parcel is not tracked / not sent and is in No Info status.",
+                        "description": "This field is calculated based on idle statuses or the statuses when the shipment actually was created, but it doesn't have a tracking number. So this is a pre-shipment state, or pre-transit state, no info state, whenever we are actually ordering the parcels from a supplier and we don't have confirmation from their end or the tracking number for the parcel. Once the parcel transitions to an in-transit state or other active statuses or any finite statuses, then the  \"days in idle\" counter stops to be calculated.\n",
                         "example": 10,
                         "type": "integer",
                         "nullable": true
                     },
                     "originCarrier": {
-                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload.\n",
+                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload. The value of this field can be specified only once in POST request.\n",
                         "example": "china-post",
                         "type": "string",
                         "nullable": true
@@ -36300,7 +35734,7 @@
                     },
                     "shippedAt": {
                         "read_only": "true,",
-                        "description": "Shipment dispatch date is expressed in UTC (Coordinated Universal Time).",
+                        "description": "Shipment dispatch date (in ISO-8601 format).",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time",
@@ -36308,7 +35742,7 @@
                     },
                     "expectedDeliveryDate": {
                         "read_only": "true,",
-                        "description": "Shipment expected delivery date is expressed in UTC (Coordinated Universal Time)",
+                        "description": "Shipment expected delivery date (in ISO-8601 format).",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time",
@@ -36316,21 +35750,21 @@
                     },
                     "createdAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the shipment was created.",
+                        "description": "The date and time (in ISO-8601 format) when the shipment was created.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "updatedAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the shipment was updated.",
+                        "description": "The date and time (in ISO-8601 format) when the shipment was updated.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "lastStatusUpdate": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the tracking status was updated.",
+                        "description": "The date and time (in ISO-8601 format) when the tracking status was updated.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time",
@@ -36353,9 +35787,7 @@
                     },
                     "orders": {
                         "description": "List of order references to which the shipment belongs.",
-                        "example": [
-                            "/orders/cbe5589f-8869-4a9c-9d9c-3d7f70d66878"
-                        ],
+                        "example": "['/orders/cbe5589f-8869-4a9c-9d9c-3d7f70d66878']\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -36364,10 +35796,7 @@
                     },
                     "shipmentItems": {
                         "description": "List of shipment items references that belong to the shipment.",
-                        "example": [
-                            "/shipment_items/cbe5589f-8869-4a9c-9d9c-3d7f70d66878",
-                            "/shipment_items/3eb2f084-ea29-41ed-9bfb-691381bd7511"
-                        ],
+                        "example": "[\n    '/shipment_items/cbe5589f-8869-4a9c-9d9c-3d7f70d66878',\n    '/shipment_items/3eb2f084-ea29-41ed-9bfb-691381bd7511'\n]\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -36375,14 +35804,14 @@
                         }
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "ws_123456",
                         "type": "string",
                         "nullable": true
@@ -36452,19 +35881,16 @@
                         "nullable": true
                     },
                     "orderNumbers": {
-                        "type": "string[]",
                         "description": "List of order numbers to which the shipment belongs.",
-                        "example": [
-                            "ON1",
-                            "ON2"
-                        ],
+                        "example": "['ON1', 'ON2']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
                     },
                     "email": {
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -36479,20 +35905,20 @@
                     },
                     "daysInTransit": {
                         "read_only": true,
-                        "description": "The number of days from the moment of sending to receiving of the parsel.",
+                        "description": "The number of days from the moment of sending to receiving of the parcel. The \"Days in Transit\" is the number of days from which the parcel transitioned into an active in-transit status. So once a parcel reaches end status or finite status, something like delivered or canceled or error or other finite states or return back to the sender (that is also finite state) then the days in transit calculation is no longer applied. So we're calculating the days when the parcel actually in transit. That's exactly what it is.\n",
                         "example": 3,
                         "type": "integer",
                         "nullable": true
                     },
                     "daysInIdle": {
                         "read_only": true,
-                        "description": "Days In Idle is counted only when the parcel is not tracked / not sent and is in No Info status.",
+                        "description": "This field is calculated based on idle statuses or the statuses when the shipment actually was created, but it doesn't have a tracking number. So this is a pre-shipment state, or pre-transit state, no info state, whenever we are actually ordering the parcels from a supplier and we don't have confirmation from their end or the tracking number for the parcel. Once the parcel transitions to an in-transit state or other active statuses or any finite statuses, then the  \"days in idle\" counter stops to be calculated.\n",
                         "example": 10,
                         "type": "integer",
                         "nullable": true
                     },
                     "originCarrier": {
-                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload.\n",
+                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload. The value of this field can be specified only once in POST request.\n",
                         "example": "china-post",
                         "type": "string",
                         "nullable": true
@@ -36534,7 +35960,7 @@
                     },
                     "shippedAt": {
                         "read_only": "true,",
-                        "description": "Shipment dispatch date is expressed in UTC (Coordinated Universal Time).",
+                        "description": "Shipment dispatch date (in ISO-8601 format).",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time",
@@ -36542,7 +35968,7 @@
                     },
                     "expectedDeliveryDate": {
                         "read_only": "true,",
-                        "description": "Shipment expected delivery date is expressed in UTC (Coordinated Universal Time)",
+                        "description": "Shipment expected delivery date (in ISO-8601 format).",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time",
@@ -36550,21 +35976,21 @@
                     },
                     "createdAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the shipment was created.",
+                        "description": "The date and time (in ISO-8601 format) when the shipment was created.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "updatedAt": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the shipment was updated.",
+                        "description": "The date and time (in ISO-8601 format) when the shipment was updated.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time"
                     },
                     "lastStatusUpdate": {
                         "read_only": true,
-                        "description": "The date and time (expressed in UTC) when the tracking status was updated.",
+                        "description": "The date and time (in ISO-8601 format) when the tracking status was updated.",
                         "example": 1610236800,
                         "type": "string",
                         "format": "date-time",
@@ -36586,14 +36012,14 @@
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "ws_123456",
                         "type": "string",
                         "nullable": true
@@ -36659,19 +36085,16 @@
                         "nullable": true
                     },
                     "orderNumbers": {
-                        "type": "string[]",
                         "description": "List of order numbers to which the shipment belongs.",
-                        "example": [
-                            "ON1",
-                            "ON2"
-                        ],
+                        "example": "['ON1', 'ON2']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
                     },
                     "email": {
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -36685,7 +36108,7 @@
                         "nullable": true
                     },
                     "originCarrier": {
-                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload.\n",
+                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload. The value of this field can be specified only once in POST request.\n",
                         "example": "china-post",
                         "type": "string",
                         "nullable": true
@@ -36698,9 +36121,7 @@
                     },
                     "orders": {
                         "description": "List of order references to which the shipment belongs.",
-                        "example": [
-                            "/orders/cbe5589f-8869-4a9c-9d9c-3d7f70d66878"
-                        ],
+                        "example": "['/orders/cbe5589f-8869-4a9c-9d9c-3d7f70d66878']\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -36709,24 +36130,21 @@
                     },
                     "shipmentItems": {
                         "description": "List of shipment items references that belong to the shipment.",
-                        "example": [
-                            "/shipment_items/cbe5589f-8869-4a9c-9d9c-3d7f70d66878",
-                            "/shipment_items/3eb2f084-ea29-41ed-9bfb-691381bd7511"
-                        ],
+                        "example": "[\n    '/shipment_items/cbe5589f-8869-4a9c-9d9c-3d7f70d66878',\n    '/shipment_items/3eb2f084-ea29-41ed-9bfb-691381bd7511'\n]\n",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ShipmentItem:jsonld-Post"
                         }
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "ws_123456",
                         "type": "string",
                         "nullable": true
@@ -36785,19 +36203,16 @@
                         "nullable": true
                     },
                     "orderNumbers": {
-                        "type": "string[]",
                         "description": "List of order numbers to which the shipment belongs.",
-                        "example": [
-                            "ON1",
-                            "ON2"
-                        ],
+                        "example": "['ON1', 'ON2']\n",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
                     },
                     "email": {
                         "description": "Customer email address.",
-                        "example": "non-existen@trackmage.com",
+                        "example": "non-existing@trackmage.com",
                         "externalDocs": {
                             "url": "http://schema.org/email"
                         },
@@ -36811,16 +36226,14 @@
                         "nullable": true
                     },
                     "originCarrier": {
-                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload.\n",
+                        "description": "The code of origin [carrier](https://trackmage.com/carriers/). Origin Carrier will be identified automatically based on Tracking Number. Sometimes the carrier cannot be identified. In that case, the system will return the error with the suggested carriers list in the payload. The value of this field can be specified only once in POST request.\n",
                         "example": "china-post",
                         "type": "string",
                         "nullable": true
                     },
                     "orders": {
                         "description": "List of order references to which the shipment belongs.",
-                        "example": [
-                            "/orders/cbe5589f-8869-4a9c-9d9c-3d7f70d66878"
-                        ],
+                        "example": "['/orders/cbe5589f-8869-4a9c-9d9c-3d7f70d66878']\n",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -36829,10 +36242,7 @@
                     },
                     "shipmentItems": {
                         "description": "List of shipment items references that belong to the shipment.",
-                        "example": [
-                            "/shipment_items/cbe5589f-8869-4a9c-9d9c-3d7f70d66878",
-                            "/shipment_items/3eb2f084-ea29-41ed-9bfb-691381bd7511"
-                        ],
+                        "example": "[\n    '/shipment_items/cbe5589f-8869-4a9c-9d9c-3d7f70d66878',\n    '/shipment_items/3eb2f084-ea29-41ed-9bfb-691381bd7511'\n]\n",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ShipmentItem:jsonld-Put"
@@ -36875,19 +36285,19 @@
                         "nullable": true
                     },
                     "qty": {
-                        "description": "The number of items in the shipment. Default and minimum value is 0. Maximum value cannot be grater than available quantity of the order item (orderItem.qty - orderItem.fulfilledQty).\n",
+                        "description": "The number of items in the shipment. Default and the minimum value is 0. The value cannot be greater than available quantity of the order item (orderItem.qty - orderItem.fulfilledQty).\n",
                         "example": 10,
                         "type": "integer",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment item in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment item in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wsi_123456",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
@@ -36935,19 +36345,19 @@
                         "nullable": true
                     },
                     "qty": {
-                        "description": "The number of items in the shipment. Default and minimum value is 0. Maximum value cannot be grater than available quantity of the order item (orderItem.qty - orderItem.fulfilledQty).\n",
+                        "description": "The number of items in the shipment. Default and the minimum value is 0. The value cannot be greater than available quantity of the order item (orderItem.qty - orderItem.fulfilledQty).\n",
                         "example": 10,
                         "type": "integer",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment item in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment item in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wsi_123456",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
@@ -36982,7 +36392,7 @@
                         "nullable": true
                     },
                     "qty": {
-                        "description": "The number of items in the shipment. Default and minimum value is 0. Maximum value cannot be grater than available quantity of the order item (orderItem.qty - orderItem.fulfilledQty).\n",
+                        "description": "The number of items in the shipment. Default and the minimum value is 0. The value cannot be greater than available quantity of the order item (orderItem.qty - orderItem.fulfilledQty).\n",
                         "example": 10,
                         "type": "integer",
                         "nullable": true
@@ -37022,19 +36432,19 @@
                         "nullable": true
                     },
                     "qty": {
-                        "description": "The number of items in the shipment. Default and minimum value is 0. Maximum value cannot be grater than available quantity of the order item (orderItem.qty - orderItem.fulfilledQty).\n",
+                        "description": "The number of items in the shipment. Default and the minimum value is 0. The value cannot be greater than available quantity of the order item (orderItem.qty - orderItem.fulfilledQty).\n",
                         "example": 10,
                         "type": "integer",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment item in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment item in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wsi_123456",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
@@ -37094,19 +36504,19 @@
                         "nullable": true
                     },
                     "qty": {
-                        "description": "The number of items in the shipment. Default and minimum value is 0. Maximum value cannot be grater than available quantity of the order item (orderItem.qty - orderItem.fulfilledQty).\n",
+                        "description": "The number of items in the shipment. Default and the minimum value is 0. The value cannot be greater than available quantity of the order item (orderItem.qty - orderItem.fulfilledQty).\n",
                         "example": 10,
                         "type": "integer",
                         "nullable": true
                     },
                     "externalSourceSyncId": {
-                        "description": "The id of the shipment item in customer store (WooCommerce, Shopify, etc.).",
+                        "description": "The id of the shipment item in ecommerce store (WooCommerce, Shopify, etc.).",
                         "example": "wsi_123456",
                         "type": "string",
                         "nullable": true
                     },
                     "externalSourceIntegration": {
-                        "description": "The workflow reference to integration for customer store.",
+                        "description": "The workflow reference to integration for ecommerce store.",
                         "example": "/workflows/a0b97939-5aea-4b35-b7c6-64f56bff1721",
                         "type": "string",
                         "format": "iri-reference",
@@ -37153,7 +36563,7 @@
                         "nullable": true
                     },
                     "qty": {
-                        "description": "The number of items in the shipment. Default and minimum value is 0. Maximum value cannot be grater than available quantity of the order item (orderItem.qty - orderItem.fulfilledQty).\n",
+                        "description": "The number of items in the shipment. Default and the minimum value is 0. The value cannot be greater than available quantity of the order item (orderItem.qty - orderItem.fulfilledQty).\n",
                         "example": 10,
                         "type": "integer",
                         "nullable": true
@@ -39118,7 +38528,7 @@
                     },
                     "checkpointDate": {
                         "read_only": "true,",
-                        "description": "The date and time (in UTC format) of the checkpoint, provided by carrier.",
+                        "description": "The date and time (in ISO-8601 format) of the checkpoint, provided by carrier.",
                         "example": 1608193517,
                         "type": "string",
                         "format": "date-time"
@@ -39158,7 +38568,7 @@
                 "properties": {
                     "checkpointDate": {
                         "read_only": "true,",
-                        "description": "The date and time (in UTC format) of the checkpoint, provided by carrier.",
+                        "description": "The date and time (in ISO-8601 format) of the checkpoint, provided by carrier.",
                         "example": 1608193517,
                         "type": "string",
                         "format": "date-time"
@@ -39217,7 +38627,7 @@
                     },
                     "checkpointDate": {
                         "read_only": "true,",
-                        "description": "The date and time (in UTC format) of the checkpoint, provided by carrier.",
+                        "description": "The date and time (in ISO-8601 format) of the checkpoint, provided by carrier.",
                         "example": 1608193517,
                         "type": "string",
                         "format": "date-time"
@@ -39265,7 +38675,7 @@
                     },
                     "checkpointDate": {
                         "read_only": "true,",
-                        "description": "The date and time (in UTC format) of the checkpoint, provided by carrier.",
+                        "description": "The date and time (in ISO-8601 format) of the checkpoint, provided by carrier.",
                         "example": 1608193517,
                         "type": "string",
                         "format": "date-time"
