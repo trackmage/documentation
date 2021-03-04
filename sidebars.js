@@ -13,23 +13,56 @@ module.exports = {
       id: 'GettingStarted'
     },
     {
+      type: 'doc',
+      id: 'StandardEntityFields'
+    },
+    {
+      type: 'doc',
+      id: 'Errors'
+    },
+    {
       type: 'category',
       label: 'Shipment',
-      items: ['Shipment/Shipment', 'Shipment/ShipmentItem'],
+      items: [
+          'shipment/Shipment',
+          'shipment/ShipmentItem',
+          'shipment/TPLinks',
+          'shipment/TrackingCheckpoint',
+          'shipment/TrackingStatuses',
+          'shipment/ShipmentStatus'
+      ],
     },
     {
       type: 'category',
       label: 'Order',
-      items: ['Order/Order', 'Order/OrderItem'],
+      items: [
+          'order/Order',
+          'order/OrderItem',
+          'order/OrderStatus'
+      ],
     },
     {
       type: 'category',
       label: 'Product',
-      items: ['Product/Product', 'Product/ProductVariant'],
+      items: ['product/Product', 'product/ProductVariant'],
+    },
+    {
+      type: 'category',
+      label: 'Workflow',
+      items: ['workflow/Workflow', 'workflow/Webhooks'],
     },
     {
       type: 'doc',
       id: 'Fields'
     },
+    {
+      type: 'doc',
+      id: 'Carriers'
+    },
+    {
+      type: 'category',
+      label: 'TrackMage SDKs',
+      items: ['trackmage-sdks/PhpSdk']
+    }
   ],
 };

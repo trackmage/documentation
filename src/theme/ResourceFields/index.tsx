@@ -2,6 +2,7 @@ import React, {ReactElement, ReactNode} from "react";
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Highlight from '@theme/Highlight';
 const ReactMarkdownWithHtml = require('react-markdown/with-html');
+import styles from './styles.module.css';
 
 type Props = {
     readonly schemaName: string;
@@ -45,15 +46,19 @@ const ResourceFields = (props: Props): JSX.Element => {
         ) as ReactElement;
     }
 
-    const getResultJSON = (refObject, toString = true): string|{} => {
+    const getResultJSON = (refObject, propName, toString = true): string|{} => {
         let resultJson = {};
         Object.keys(refObject.properties).forEach(propertyKey => {
             const property = refObject.properties[propertyKey] || {};
             if(!!property.example){
                 resultJson[propertyKey] = property.type === 'array'? eval(property.example) : property.example;
             } else if(!!property['$ref'] || !!property['anyOf']) {
-                const childRef = !!property['anyOf'] ? getObjectByRef(property.anyOf[0]['$ref']) : getObjectByRef(property['$ref']);
-                resultJson[propertyKey] = getResultJSON(childRef, false);
+                if (propertyKey !== propName) {
+                    const childRef = !!property['anyOf'] ? getObjectByRef(property.anyOf[0]['$ref']) : getObjectByRef(property['$ref']);
+                    resultJson[propertyKey] = getResultJSON(childRef, propertyKey, false);
+                } else {
+                    resultJson[propertyKey] = `object${(refObject.properties[propertyKey]?.nullable ? '|null' : '')}`;
+                }
             } else {
                 resultJson[propertyKey] = refObject.properties[propertyKey]?.type + (refObject.properties[propertyKey]?.nullable ? `|null` : '');
             }
@@ -66,17 +71,17 @@ const ResourceFields = (props: Props): JSX.Element => {
         if (null === refObject) return null;
         let prDescriptions = [];
         Object.keys(refObject.properties).forEach(propertyKey => {
-            prDescriptions.push((<li><strong>{propertyKey}</strong>: <ReactMarkdownWithHtml children={refObject.properties[propertyKey]?.description} allowDangerousHtml /></li>));
+            prDescriptions.push((<li key={propertyKey}><strong>{propertyKey}</strong>: <ReactMarkdownWithHtml children={refObject.properties[propertyKey]?.description} allowDangerousHtml /></li>));
         });
         const nullable = options.nullable ? `|null` : '';
         const type = refObject.type ? (<span>Type: <strong>{refObject.type}{nullable}</strong></span>) : '';
         const description = options.description ? (<p><ReactMarkdownWithHtml children={options.description} allowDangerousHtml /></p>) : '';
-        const propDescription = React.createElement('ul', {}, prDescriptions);
+        const propDescription = React.createElement('ul', {className: styles.refProperties}, prDescriptions);
         return (
             <div>
                 <p>{type}</p>
                 {description}
-                Example: <pre style={{maxWidth: '500px', overflow: 'auto'}}>"{name}": {getResultJSON(refObject)}</pre>
+                Example: <pre style={{maxWidth: '500px', overflow: 'auto'}}>"{name}": {getResultJSON(refObject, name)}</pre>
                 {propDescription}
             </div>
         ) as ReactElement;
@@ -111,7 +116,7 @@ const ResourceFields = (props: Props): JSX.Element => {
                     {Object.keys(resourceObject.properties)
                         .sort((a, b) => +resourceObject.properties[b].required || 0 - +resourceObject.properties[a].required || 0)
                         .map((key) => (
-                        propertyToHTML(key, resourceObject.properties[key], resourceObject.required.indexOf(key) !== -1)
+                        propertyToHTML(key, resourceObject.properties[key], resourceObject.required?.indexOf(key) !== -1)
                     ))}
                 </tbody>
             </table>

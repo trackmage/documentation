@@ -33,7 +33,7 @@ function Capitalize(str: any): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-const Index = ({resourceName, toc}: Props): JSX.Element => {
+const ResourceMethods = ({resourceName, toc}: Props): JSX.Element => {
     const {siteConfig} = useDocusaurusContext();
     const {openApiJSON} = siteConfig.customFields;
     const lookupMethods = (): Methods => {
@@ -160,5 +160,5 @@ const Index = ({resourceName, toc}: Props): JSX.Element => {
     return toc && (<TOCInline toc={getTOCItems()}/>) || (<div>{getEndpoints()}</div>);
 }
 
-export default Index;
+export default ResourceMethods;
 

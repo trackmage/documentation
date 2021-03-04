@@ -1,0 +1,16 @@
+---
+id: Status
+title: Status
+sidebar_label: Status
+slug: status.html
+---
+
+import ResourceFields from '@theme/ResourceFields';
+
+export const Title = ({type}) => (<h2>{type ? `${type} `: ''}Status Properties</h2>);
+
+> In developing
+
+<Title type={props.entity}/>
+
+<ResourceFields schemaName="Status-Get"/>
