@@ -26,7 +26,13 @@ This command starts a local development server and open up a browser window. Mos
 ### Build
 
 ```
-$ npm build
+$ npm run build
+```
+
+### Download json files
+```
+wget https://api.trackmage.com/docs.json -O ./src/swagger_docs.json
+wget https://api.trackmage.com/public/carriers --header="accept: application/json"  -O ./src/carriers.json
 ```
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.

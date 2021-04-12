@@ -116,7 +116,7 @@ const ResourceFields = (props: Props): JSX.Element => {
                     {Object.keys(resourceObject.properties)
                         .sort((a, b) => +resourceObject.properties[b].required || 0 - +resourceObject.properties[a].required || 0)
                         .map((key) => (
-                        propertyToHTML(key, resourceObject.properties[key], resourceObject.required?.indexOf(key) !== -1)
+                        propertyToHTML(key, resourceObject.properties[key], !!resourceObject.required && resourceObject.required?.indexOf(key) !== -1)
                     ))}
                 </tbody>
             </table>

@@ -1,12 +1,7 @@
 const fs = require('fs');
-const spec = fs.readFileSync('./src/swagger_docs.json', 'utf-8');
+const openApiJSON = JSON.parse(fs.readFileSync('./src/swagger_docs.json', 'utf-8'));
+const carriersJSON = JSON.parse(fs.readFileSync('./src/carriers.json', 'utf-8'));
 
-// function downloadFile(url) {
-//   return require('child_process')
-//       .execFileSync('curl', ['--silent', '-L', url], {encoding: 'utf8', maxBuffer: Infinity});
-// }
-// const content = downloadFile('https://api.trackmage.com/docs.json?spec_version=3');
-const apiJson = JSON.parse(spec);//JSON.parse(content);
 module.exports = {
   title: 'TrackMage Documentation',
   tagline: 'A tracking page for your store. Beautiful, branded, customizable',
@@ -97,7 +92,8 @@ module.exports = {
     ],
   ],
   customFields: {
-    openApiJSON: apiJson
+    openApiJSON,
+    carriersJSON,
   }
 }
 ;
