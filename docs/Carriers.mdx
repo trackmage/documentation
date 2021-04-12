@@ -27,3 +27,34 @@ import CarriersList from '@theme/CarriersList';
 Here is the list of supported carriers
 
 <CarriersList />
+
+
+## Test tracking numbers
+
+These tracking numbers will be detected as TrackMage Test carrier and have pre-defined status. Use them for the testing purposes only.
+
+Each tracking number consists of the following mask: TM###XXXXXXXXXXXXTM, where X can be changed to any value, for example TM2020002TM or TM20299999TM will have Available for Pickup status.
+
+<table>
+  <thead>
+      <tr>
+          <th>Tracking Number</th>
+          <th>Pre-defined Status</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr><td>TM404000000000001TM</td><td>Error (code: error)</td></tr>
+      <tr><td>TM418000000000001TM</td><td>Pre Transit (code: pre_transit)</td></tr>
+      <tr><td>TM403000000000001TM</td><td>No Info (code: no_info)</td></tr>
+      <tr><td>TM102000000000001TM</td><td>In Transit (code: in_transit)</td></tr>
+      <tr><td>TM204000000000001TM</td><td>Delivery in Progress (code: delivery_in_progress)</td></tr>
+      <tr><td>TM200000000000001TM</td><td>Delivered (code: delivered)</td></tr>
+      <tr><td>TM410000000000001TM</td><td>Unsuccessful Delivery (code: unsuccessful_delivery)</td></tr>
+      <tr><td>TM500000000000001TM</td><td>Error (code: error)</td></tr>
+      <tr><td>TM503000000000001TM</td><td>Expired (code: expired)</td></tr>
+      <tr><td>TM202000000000001TM</td><td>Available for Pickup (code: available_for_pickup)</td></tr>
+      <tr><td>TM100000000000001TM</td><td>Cancelled (code: cancelled)</td></tr>
+      <tr><td>TM302000000000001TM</td><td>Return to Sender (code: return_to_sender)</td></tr>
+      <tr><td>TM413000000000001TM</td><td>Transit Limit Exceeded (code: transit_limit_exceeded)</td></tr>
+  </tbody>
+</table>
