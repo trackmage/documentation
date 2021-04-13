@@ -77,6 +77,10 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
     },
+    matomo: {
+      matomoUrl: 'https://matomo.dev.trackmage.com/',
+      siteId: '2',
+    },
   },
   presets: [
     [
@@ -94,6 +98,9 @@ module.exports = {
   customFields: {
     openApiJSON,
     carriersJSON,
-  }
+  },
+  plugins: [
+      'docusaurus-plugin-matomo',
+  ],
 }
 ;
