@@ -14,7 +14,7 @@ ___
 
 <h3>Step 0: Obtain API Credentials and Authorization TOKEN</h3>
 
-See [Before Start](Authorization.mdx) for instructions on obtaining store API credentials and TOKEN.
+See [Authorization](Authorization.mdx) for instructions on obtaining store API credentials and TOKEN.
 
 <p>In API calls, include obtained authorization token or api credentials.</p>
 
@@ -61,10 +61,11 @@ $client->setAccessToken('YOUR_TOKEN');
 <TabItem value="curl">
 
 ```curl
-curl -X POST https://api.trackmage.com/shipments \
-    -H "Accept: application/json" \
-    -H "Content-Type: application/json \
-    -H "Authorization: Bearer YOUR_TOKEN"
+curl 'https://api.trackmage.com/shipments' \
+  -H 'accept: application/ld+json' \
+  -H 'content-type: application/ld+json' \
+  -H 'authorization: Bearer YOUR_TOKEN' \
+  --data-binary '{"trackingNumber":"TRACKING_NUMBER","originCarrier":"ORIGIN_CARRIER_CODE","email":"CUSTOMER_EMAIL","workspace":"/workspaces/WORKSPACE_ID"}'
 ```
 
 </TabItem>
@@ -84,24 +85,19 @@ $data = [
     'email' => 'CUSTOMER_EMAIL' // optionally
 ];
 try {
-    $response = $client->getGuzzleClient()->post('/shipments', [
-    'headers' => [
-    'Content-Type' => 'application/ld+json'
-    ],
-    'body' => \GuzzleHttp\json_encode($data)
+    $response = $client->post('/shipments', [
+        'headers' => [
+            'Content-Type' => 'application/ld+json'
+        ],
+        'json' => $data
     ]);
-    $shipment =  \GuzzleHttp\json_decode( $response->getBody()->getContents(), true );
+    $shipment = TrackMageClient::item($response);
     echo $shipment['id'];
 } catch (ClientException $e) {
-    $contents = $e->getResponse()->getBody()->getContents();
-    $data = \GuzzleHttp\json_decode($contents, true);
-    printf('An client exception occurred: %d %s',
-            $e->getCode(),
-            $data['hydra:description']);
+    printf('An client exception occurred: %d %s', $e->getCode(), TrackMageClient::error($e);
 } catch (\Exception $e) {
     printf('An error occurred: %d %s', $e->getCode(), $e->getMessage());
 }
-
 ```
 
 </TabItem>
@@ -120,40 +116,36 @@ try {
 <TabItem value="curl">
 
 ```curl
-curl -X POST https://api.trackmage.com/generate_tracking_page_link \
-    -H "Accept: application/json" \
-    -H "Content-Type: application/json \
-    -H "Authorization: Bearer YOUR_TOKEN"
+curl 'https://api.trackmage.com/generate_tracking_page_link' \
+  -H 'accept: application/ld+json' \
+  -H 'content-type: application/ld+json' \
+  -H 'authorization: Bearer YOUR_TOKEN' \
+  --data-binary '{"trackingPageId":"TRACKING_PAGE_ID","filter":{"id":"SHIPMENT_ID"}}'
 ```
 
 </TabItem>
- <TabItem value="php">
+<TabItem value="php">
 
 ```php
 try {
-     $response = $client->getGuzzleClient()->post('/generate_tracking_page_link', [
+     $response = $client->post('/generate_tracking_page_link', [
          'headers' => [
             'Content-Type' => 'application/ld+json'
          ],
-         'body' => \GuzzleHttp\json_encode([
+         'json' => [
              'trackingPageId' => 'TRACKING_PAGE_ID',
              'filter' => [
                 'id' => $shipmentId
              ]
-         ])
+         ]
      ]);
-     $trackingPageLink = \GuzzleHttp\json_decode( $response->getBody()->getContents(), true );
+     $trackingPageLink = TrackMageClient::item($response);
      echo $trackingPageLink['link'];
- } catch (ClientException $e) {
-     $contents = $e->getResponse()->getBody()->getContents();
-     $data = \GuzzleHttp\json_decode($contents, true);
-     printf('An client exception occurred: %d %s', $e->getCode(), $data['hydra:description']);
-     exit;
- } catch (\Exception $e) {
-     printf('An error occurred: %d %s', $e->getCode(), $e->getMessage());
-     exit;
- }
+} catch (ClientException $e) {
+    printf('An client exception occurred: %d %s', $e->getCode(), TrackMageClient::error($e);
+} catch (\Exception $e) {
+    printf('An error occurred: %d %s', $e->getCode(), $e->getMessage());
+}
 ```
 </TabItem>
 </Tabs>
-
