@@ -109,6 +109,11 @@ const ResourceFields = (props: Props): JSX.Element => {
         }
         return React.createElement('tr', {key: name}, tds);
     }
+    if (!resourceObject.properties) {
+        return (
+            <div style={{padding: 5}}>No properties</div>
+        )
+    }
     return (
         <div>
             <table className="properties-table">
