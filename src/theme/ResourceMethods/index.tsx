@@ -44,16 +44,19 @@ const ResourceMethods = ({resourceName, toc}: Props): JSX.Element => {
             delete: []
         } as Methods;
         const allPaths = openApiJSON.paths || {};
-        Object.keys(allPaths).forEach((path) => {
-            const pathMethods = allPaths[path] || {};
-            Object.keys(pathMethods).forEach((methodName) => {
-                const method = allPaths[path][methodName] || {};
-                const tags = method?.tags || [];
-                if (tags.includes(resourceName)) {
-                    methods[methodName].push({path, methodName, method});
-                }
+
+        Object.keys(allPaths)
+            .sort((a: string, b: string) => (!!a && !!b && a.length > b.length) ? 1 : -1)
+            .forEach((path) => {
+                const pathMethods = allPaths[path] || {};
+                Object.keys(pathMethods).forEach((methodName) => {
+                    const method = allPaths[path][methodName] || {};
+                    const tags = method?.tags || [];
+                    if (tags.includes(resourceName)) {
+                        methods[methodName].push({path, methodName, method});
+                    }
+                });
             });
-        });
         return methods;
     }
     const methodToTOCItem = ({path, methodName, method}: Method): TOCItem => {
