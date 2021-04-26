@@ -5,10 +5,26 @@ sidebar_label: Errors
 slug: errors.html
 ---
 
-// TODO: Edit text
-<p>In the event of a client or server error, the response will contain the standard 4xx or 5xx respectively, accompanied by a well-formed JSON body describing the issue, e.g., a required field was omitted, a purchase failed, etc.</p>
+<p>
+    TrackMage uses conventional HTTP response codes to indicate the success or failure of an API request.
+    In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that resulted from
+    the provided information (e.g. a required parameter was missing, an endpoint is not found, etc.),
+    and codes in the 5xx range indicate an error with TrackMage server.
+</p>
+<p>
+    In the event of a client or server error, the response will contain the standard 4xx or 5xx respectively,
+    accompanied by a description of the error in the <a target="_blank"
+        href="https://www.hydra-cg.com/spec/latest/core/#description-of-http-status-codes-and-errors"
+        title="Hydra error format">Hydra error format</a> or in the format described in
+    the <a href="https://tools.ietf.org/html/rfc7807" title="RFC 7807">RFC 7807</a>.
+</p>
+<p>
+    Each client library will encapsulate these errors and raise an exception, in addition to other exceptional cases,
+    such as network failures. It is recommended to handle exceptions gracefully.
+</p>
 
-<h3>Common HTTP Error Status Codes</h3>
+## Common Error Status Codes
+
 <table>
     <thead>
     <tr>
@@ -49,6 +65,11 @@ slug: errors.html
         <td>The method you are trying to call is not allowed!</td>
     </tr>
     <tr>
+        <td>406</td>
+        <td>Not Acceptable</td>
+        <td>The target resource does not have a current representation that would be acceptable to the user agent.</td>
+    </tr>
+    <tr>
         <td>413</td>
         <td>Payload Too Large</td>
         <td>The file you are trying to upload is too big! Try smaller file</td>
@@ -65,3 +86,56 @@ slug: errors.html
     </tr>
     </tbody>
 </table>
+
+## Examples
+
+### Token Not Found
+
+```json
+{
+  "code": 401,
+  "message": "JWT Token not found"
+}
+```
+
+### Not Acceptable Format
+
+```json
+{
+  "type": "https:\/\/tools.ietf.org\/html\/rfc2616#section-10",
+  "title": "An error occurred",
+  "detail": "Requested format \"application\/xml\" is not supported. Supported MIME types are \"application\/ld+json\", \"application\/json\", \"text\/csv\", \"text\/html\".",
+  "trace": [
+    { ... }
+  ]
+}
+```
+
+### Create Shipment Failed
+
+```json
+{
+  "type": "https:\/\/tools.ietf.org\/html\/rfc2616#section-10",
+  "title": "An error occurred",
+  "detail": "trackingNumber: Shipment with this tracking number already exists",
+  "violations": [
+    {
+      "propertyPath": "trackingNumber",
+      "message": "Shipment with this tracking number already exists"
+    }
+  ]
+}
+```
+
+### Internal Server Error
+
+```json
+{
+  "type": "https:\/\/tools.ietf.org\/html\/rfc2616#section-10",
+  "title": "An error occurred",
+  "detail": "Something went wrong",
+  "trace": [
+    {...}
+  ]
+}
+```
