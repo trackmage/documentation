@@ -45,6 +45,11 @@ slug: errors.html
         <td>Request not processed due to client error</td>
     </tr>
     <tr>
+        <td>401</td>
+        <td>Unauthorized</td>
+        <td>Authentication required</td>
+    </tr>
+    <tr>
         <td>402</td>
         <td>Payment Required</td>
         <td>Plan Upgrade Required</td>
@@ -87,7 +92,7 @@ slug: errors.html
     </tbody>
 </table>
 
-## Examples
+## Responses Examples
 
 ### Token Not Found
 
@@ -111,7 +116,7 @@ slug: errors.html
 }
 ```
 
-### Create Shipment Failed
+### Create Shipment Failed (validation error)
 
 ```json
 {
