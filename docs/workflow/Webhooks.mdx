@@ -5,4 +5,224 @@ sidebar_label: Webhooks
 slug: webhooks.html
 ---
 
-> In developing
+With webhooks you can receive updates about particular entities.
+After you subscribed to a webhook you'll be receiving events when the entity is created, updated or deleted.
+
+For example, you can rely on webhooks to trigger an action in your app when an order is created, or when tracking status of shipment is updated.
+By using webhooks subscriptions you can make fewer API calls overall, which makes sure that your apps are more efficient and update quickly.
+
+You can view this [video](https://www.youtube.com/watch?v=rxjkoeN0uMs) to better understand how webhooks work in TrackMage.
+
+## How to setup the Webhooks
+
+You can enable the webhook from the Automation / Webhooks page in the [TrackMage admin panel](https://app.trackmage.com/) --> Add webhook --> Enter Webhook URL -> Select entities and events to start receiving updates.
+
+## Securing Webhooks
+
+We currently support either HTTP or HTTPS URLs, so you can have security by using an SSL-enabled URL.
+To restrict access for your webhook endpoint we allow use two types of authorization:
+- **Basic** - an HTTP authentication using username and password.
+- **Bearer** - an HTTP authentication scheme that involves security tokens called bearer tokens.
+
+## Frequency of updates and Concurrency
+
+For each webhook you can set up frequency of updates.
+- **Immediately**: the update will be sent as soon as a tracking number status changes.
+- **5 minutes - 6 hours**: Webhook accumulates the updates and will send them in a batch.
+
+How Concurrency works:<br/>
+Let's say, in the webhook buffer there are 1500 tracking numbers. Before the sending, the buffer is always split into portions or batches. The number of requests depends on the amount of tracking numbers to send and on the batch size. Currently, the batch size is 500.
+The webhook buffer gets empty on success response. If response status is an error (4xx, 5xx), the tracking numbers will remain in the queue. If the response status is 401 - the webhook will be disabled.
+Partially submitted data will not be submitted again. For example, if webhook was able to submit 500 tracking numbers out of 1000, on the next call it will submit only remaining 500 (not 1000 like it used to).
+
+Example 1. The concurrency is set to 1 (or none).
+
+The batches will be sent consequently, so requests will not be sent in parallel.
+The next batch will be sent only after the response from the previous has been received. In case if response status is error it'll stop sending the others.
+
+```
+[500][500][500] => receiver
+```
+
+Example 2. The concurrency is 3 and all requests are sent in parallel.
+
+```
+[500]
+[500] => receiver
+[500]
+```
+On error, it will not stop but will try to send the next request. At the end, all not-accepted requests will be scheduled for the next webhook call.
+
+## Anatomy of Webhook
+
+After you configure a webhook subscription, the events that you specified will schedule or send immediately (depended on your webhook settings)
+a webhook notification.
+TrackMage sends event driven data to webhook URL via POST method.
+This notification contains a JSON payload with event data and authorization header (basic or bearer) if Auth Type is set in the webhook settings.
+
+JSON payload is represented by list of objects with four properties:
+- **"entity"**- the entity for which the webhook triggered
+- **"event"** - the event type create/update/delete
+- **"data"** - the entity's data
+- **"updatedFields"** - the list of updated fields codes (empty for create/delete events)
+
+For example, the shipments/update webhook contains:
+
+**Header**
+
+```
+authorization: Basic eDE6eDI=
+content-length: 1007
+content-type: application/json
+host: webhook.example.com
+```
+
+**Body**
+
+```json
+{
+  "data": [
+    {
+      "entity": "shipments",
+      "data": {
+        "id": "018c7b7f-91d9-442d-ade4-eb72f95b9c15",
+        "@id": "/shipments/018c7b7f-91d9-442d-ade4-eb72f95b9c15",
+        "@type": "Shipment",
+        "email": null,
+        ...
+        "@context": "/contexts/Shipment",
+        "createdAt": "2021-05-05T09:01:26+02:00",
+        "shippedAt": "2021-05-02T07:01:27+00:00",
+        "updatedAt": "2021-05-05T07:01:27+00:00",
+        ...
+      },
+      "event": "update",
+      "updatedFields": [
+        "trackingStatus",
+        "destinationCarrier",
+        ...
+      ]
+    },
+    {
+      "entity": "shipments",
+      "data": {
+        "id": "018c7b7f-91d9-442d-ade4-eb72f95b9c15",
+        "@id": "/shipments/018c7b7f-91d9-442d-ade4-eb72f95b9c15",
+        "@type": "Shipment",
+        "email": null,
+        ...
+        "@context": "/contexts/Shipment",
+        "createdAt": "2021-05-05T09:01:26+02:00",
+        "shippedAt": null,
+        "updatedAt": "2021-05-05T07:01:27+00:00",
+        ...
+      },
+      "event": "update",
+      "updatedFields": [
+        "originCarrier",
+        "handler",
+        "updatedAt"
+      ]
+    }
+  ]
+}
+```
+
+## List of supported webhook entities and events
+
+TrackMage allows to create one webhook for all supported entities and events.
+But we recommend specifying separate webhooks for different entities and events.
+
+Webhooks are available for the following entities:
+- **[Shipment](../shipment/Shipment.mdx)**
+- **[ShipmentItem](../shipment/ShipmentItem.mdx)**
+- **[Order](../order/Order.mdx)**
+- **[OrderItem](../order/OrderItem.mdx)**
+- **Reviews**
+
+Webhooks can be triggered for the following events:
+- **create**
+- **update**
+- **delete**
+
+## What you can do with Webhook via API
+
+Webhooks are represented by [Workflow](./Workflow.mdx) entity in the TrackMage API.
+
+:::note
+In API request you should use `type: "webhook"` to be sure you work with webhook
+:::
+
+In addition to standard [Workflow fields](./Workflow.mdx#workflow-properties), webhook has its own specified properties, which should be used in API requests.
+A full list of specified properties can be retrieved by using request to [Custom Fields](./CustomFields.mdx#getFieldCollection) endpoint with GET parameter `entity=workflows.webhook`:
+```curl
+https://api.trackmage.com/fields?entity=workflows.webhook
+```
+
+Full list of available endpoints to create/update/edit webhooks available on the [workflow](./Workflow.mdx#endpoints) page.
+
+## How to handle webhook updates
+
+This example shows you how to retrieve the webhook, validate Basic authentication it and save data to a CSV file.
+
+```php
+
+<?php
+
+validateAuth('trackmage', 'QwYDLKEYPWBoj74T2');
+$trackings = extractTrackingsFromRequest();
+$filename = extractFilenameFromRequest();
+saveTrackingsToFile($trackings, __DIR__.'/'.$filename.'.csv');
+print count($trackings)." items processed";
+
+function validateAuth($allowedLogin, $allowedPassword) {
+    if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) ||
+        $_SERVER['PHP_AUTH_USER'] !== $allowedLogin || $_SERVER['PHP_AUTH_PW'] !== $allowedPassword
+    ) {
+        header('WWW-Authenticate: Basic realm="Restricted area"');
+        http_response_code(401);
+        print 'Unauthorized ' . $_SERVER['REQUEST_URI'] . " from " . $_SERVER['REMOTE_ADDR'];
+        exit;
+    }
+}
+
+function extractFilenameFromRequest() {
+  $host = $_SERVER['HTTP_HOST'];
+  if (false === $pos = strpos($host, 'trackmagic-webhook.your-domain.com')) {
+    return 'trackings-log';
+  }
+  return substr($host, 0, $pos-1);
+}
+
+function extractTrackingsFromRequest() {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(400);
+        print 'Request method must be POST';
+        exit;
+    }
+    $json = file_get_contents('php://input');
+    $data = @json_decode($json, true);
+    if (is_null($data) || !isset($data['data'])) {
+        http_response_code(400);
+        print 'Bad json format';
+        exit;
+    }
+    return $data['data'];
+}
+
+function saveTrackingsToFile(array $trackings, $filename) {
+    $file = new SplFileObject($filename, 'a');
+    $timestamp = (new DateTime())->format('c');
+    foreach ($trackings as $tracking) {
+        $file->fputcsv([
+            $timestamp,
+            $tracking['trackingNumber'],
+            $tracking['status'],
+        ]);
+    }
+}
+
+```
+
+
+
