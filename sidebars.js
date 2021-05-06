@@ -21,6 +21,10 @@ module.exports = {
       id: 'Errors'
     },
     {
+      type: 'doc',
+      id: 'Workspace'
+    },
+    {
       type: 'category',
       label: 'Shipment',
       items: [

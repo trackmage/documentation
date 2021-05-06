@@ -79,19 +79,19 @@ const ResourceMethods = ({resourceName, toc}: Props): JSX.Element => {
         let children = [];
         Object.keys(schema).forEach((key) => {
            if(key === 'items'){
-               children.push((<div>{Capitalize(schema.type || '')} of {Capitalize(schema.items.type)}s.</div>))
+               children.push((<div key={`items_${schema.type}`}>{Capitalize(schema.type || '')} of {Capitalize(schema.items.type)}s.</div>))
            }
            if(key === 'enum'){
-               children.push((<div>Allowed values: <code>{schema.enum.join('|')}</code></div>));
+               children.push((<div key={`enum_${schema.type}`}>Allowed values: <code>{schema.enum.join('|')}</code></div>));
            }
            if(key === 'default'){
-               children.push((<div>The default value: <code>{schema.default}</code></div>));
+               children.push((<div key={`default_${schema.type}`}>The default value: <code>{schema.default}</code></div>));
            }
            if(key === 'minimum'){
-               children.push((<div>The minimal value: <code>{schema.minimum}</code></div>));
+               children.push((<div key={`min_${schema.type}`}>The minimal value: <code>{schema.minimum}</code></div>));
            }
            if(key === 'maximum'){
-               children.push((<div>The maximal value: <code>{schema.maximum}</code></div>));
+               children.push((<div key={`max_${schema.type}`}>The maximal value: <code>{schema.maximum}</code></div>));
            }
         });
         return children;

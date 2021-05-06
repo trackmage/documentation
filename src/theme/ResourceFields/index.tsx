@@ -47,6 +47,7 @@ const ResourceFields = (props: Props): JSX.Element => {
     }
 
     const getResultJSON = (refObject, propName, toString = true): string|{} => {
+        if (!refObject.properties) return '{}';
         let resultJson = {};
         Object.keys(refObject.properties).forEach(propertyKey => {
             const property = refObject.properties[propertyKey] || {};
@@ -93,25 +94,25 @@ const ResourceFields = (props: Props): JSX.Element => {
         const readOnly = options.readOnly ? (<Highlight color="#25c2a0">READ-ONLY</Highlight>) : '';
         const isRequired = required? (<Highlight color="#25c2a0">REQUIRED</Highlight>) : '';
         const anyOf = options.anyOf || [];
-        tds.push(React.createElement('td', {}, (<p><strong>{name}</strong><br/>{readOnly}{isRequired}</p>)))
+        tds.push(React.createElement('td', {key: `name_${name}`}, (<p><strong>{name}</strong><br/>{readOnly}{isRequired}</p>)))
         if (anyOf.length > 0) {
             let variants = [];
             anyOf.forEach(variant => {
                 const variantRef = variant['$ref'] || null;
                 if (variants.length > 0) {
-                    variants.push((<div><strong>--- OR ---</strong></div>));
+                    variants.push((<div key={`or_${name}`}><strong>--- OR ---</strong></div>));
                 }
                 variants.push(variantRef === null? propertyDescription(options) : propertyRef(name, options, variantRef))
             });
-            tds.push(React.createElement('td', {}, variants))
+            tds.push(React.createElement('td', {key: `variants_${name}`}, variants))
         } else {
-            tds.push(React.createElement('td', {}, ref === null? propertyDescription(options) : propertyRef(name, options, ref)))
+            tds.push(React.createElement('td', {key: `descr_${name}`}, ref === null? propertyDescription(options) : propertyRef(name, options, ref)))
         }
         return React.createElement('tr', {key: name}, tds);
     }
     if (!resourceObject.properties) {
         return (
-            <div style={{padding: 5}}>No properties</div>
+            <div key={`no_props`} style={{padding: 5}}>No properties</div>
         )
     }
     return (
