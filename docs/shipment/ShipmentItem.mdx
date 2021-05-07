@@ -8,13 +8,28 @@ slug: shipment-item.html
 import ResourceMethods from "@theme/ResourceMethods";
 import ResourceFields from '@theme/ResourceFields';
 
+Each Shipment Item contains information about the shipped [OrderItem](../order/OrderItem.mdx) in the [Shipment](./Shipment.mdx).
+
+When you create or update a ShipmentItem our system validates the Quantity can be fulfilled.
+Available quantity is calculated depending on `orderItem.qty - orderItem.fulfilledQty`.
+
+ShipmentItems will be deleted automatically on delete parent [Shipment](./Shipment.mdx) object or related [OrderItem](../order/OrderItem.mdx) object.
+
+:::note
+Once a ShipmentItem is created you cannot change the shipment, but you can change OrderItem and Quantity.
+:::
+
 ## What you can do with ShipmentItem
 
 <ResourceMethods resourceName="ShipmentItem" toc={true}/>
 
+- - -
+
 ## ShipmentItem Properties
 
 <ResourceFields schemaName="ShipmentItem-Get" />
+
+- - -
 
 ## Endpoints
 

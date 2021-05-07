@@ -11,7 +11,8 @@ import ResourceFields from '@theme/ResourceFields';
 All Shipment objects are associated with a specific [Workspace](./Workspace.mdx), that is why workspace is present in all shipments,
 and it is required during creation.
 
-The trackingNumber is required for the tracking.
+The trackingNumber is required for the tracking. Each shipment supports a single tracking number.
+If you need to use multiple tracking numbers, then you should create separate shipments.
 
 A Shipment created with a valid **trackingNumber** will automatically populate its tracking information.
 
