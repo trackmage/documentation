@@ -161,6 +161,47 @@ https://api.trackmage.com/fields?entity=workflows.webhook
 
 Full list of available endpoints to create/update/edit webhooks available on the [workflow](./Workflow.mdx#endpoints) page.
 
+### How to programmatically create webhook
+
+```php
+
+<?php
+use TrackMage\Client\TrackMageClient;
+
+try {
+    $response = $client->post('/workflows', ['json' => [
+        'type' => 'webhook',
+        'period' => 'immediately',
+        'event' => 'update',
+        'title' => 'test webhook', // webhook title
+        'concurrency' => '1',
+        'workspace' => '/workspaces/' . $workspaceId,
+        'url' => $targetUrl,
+        'enabled' => true,
+        'entity' => $entity, // shipments|shipment_items|orders|order_items or null for any
+        'event' => $event, // create|update|delete or null for any
+        'field' => $field, // any field or null for any
+    ]]);
+    $data = TrackMageClient::item($response);
+} catch( ClientException $e ) {
+    print('Unable to create webhook: '.TrackMageClient::error($e));
+}
+```
+
+### How to programmatically delete webhook
+
+```php
+
+<?php
+use TrackMage\Client\TrackMageClient;
+
+try {
+    $response = $client->delete('/workflows/'.$webhookId);
+} catch( ClientException $e ) {
+    print('Unable to delete webhook: '.TrackMageClient::error($e));
+}
+```
+
 ## How to handle webhook updates
 
 This example shows you how to retrieve the webhook, validate Basic authentication it and save data to a CSV file.
@@ -223,6 +264,3 @@ function saveTrackingsToFile(array $trackings, $filename) {
 }
 
 ```
-
-
-
