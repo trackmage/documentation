@@ -11,4 +11,12 @@ Download: <https://github.com/trackmage/trackmage-sdk-php>
 
 ## Error handling
 
-> in developing
+```php
+try {
+    $response = $client->post('/shipments', ['json' => $data]);
+} catch (ClientException $e) {
+    printf('An client exception occurred: %d %s', $e->getCode(), TrackMageClient::error($e);
+} catch (\Exception $e) {
+    printf('An error occurred: %d %s', $e->getCode(), $e->getMessage());
+}
+```

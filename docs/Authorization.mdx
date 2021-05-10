@@ -23,7 +23,7 @@ See <a href="https://help.trackmage.com/en/docs/5-how-to-sign-up-for-trackmage" 
 <h3 id="obtain-authorization-token">Obtain Authorization TOKEN</h3>
 
 :::note
-Ignore this step of you use TrackMage PHP SDK
+Ignore this step of you use [TrackMage PHP SDK](trackmage-sdks/php.mdx)
 :::
 
 :::note
@@ -67,13 +67,86 @@ Example response:
 }
 ```
 
-<h3 id="download-libraries">Download SDK</h3>
-<ol>
-    <li><a href="https://github.com/trackmage/trackmage-sdk-php" target="_blank" title="Download TrackMage SDK for PHP">TrackMage SDK for PHP</a></li>
-</ol>
+<h2 id="oauth-flow">OAuth Authentication flow</h2>
 
 :::note
-You can use cURL or any HTTP client library for the desired language.
+For integrating third-party application with TrackMage you'll need to generate client id and secret in TrackMage.
+Go to <a href="https://app.trackmage.com/dashboard/user-profile/api-keys" target="_blank" title="TrackMage Api Keys Settings">Api Keys Settings</a>, specify App Name and App Url and click Generate.
 :::
 
+<ul>
+<li>The user clicks the Login with TrackMage button on any third-party application.</li>
 
+<Tabs
+  groupId="languages"
+  defaultValue="curl"
+  values={[
+    {label: 'cURL', value: 'curl'},
+    {label: 'HTTP', value: 'http'},
+  ]
+}>
+<TabItem value="curl">
+
+```curl
+curl --location --request GET 'https://api.trackmage.com/oauth/v2/auth?client_id=YOUR_CLIENT_ID&state=STATE&redirect_uri=https://example.com&response_type=code'
+```
+
+</TabItem>
+<TabItem value="http">
+
+```http
+GET https://api.trackmage.com/oauth/v2/auth?client_id=YOUR_CLIENT_ID&state=STATE&redirect_uri=https://example.com&response_type=code
+Accept: application/json
+```
+
+</TabItem>
+</Tabs>
+
+<li>The application redirects the user to the TrackMage Login page, and the user enters the TrackMage credentials.</li>
+<li>TrackMage asks the user whether he wants to Allow access to the third-party application.</li>
+<li>User clicks the Allow button</li>
+<li>TrackMage will redirect to the requested redirect url, e.g https://example.com?state=STATE&code=CODE</li>
+<li>The third-party application obtains the access token</li>
+
+<Tabs
+  groupId="languages"
+  defaultValue="curl"
+  values={[
+    {label: 'cURL', value: 'curl'},
+    {label: 'HTTP', value: 'http'},
+  ]
+}>
+<TabItem value="curl">
+
+```curl
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"grant_type": "authorization_code","code": "CODE", "redirect_uri": "https://example.com", "client_id": "YOUR_CLIENT_ID", "client_secret": "YOUR_CLIENT_SECRET"}' \
+  https://api.trackmage.com/oauth/v2/auth
+```
+
+</TabItem>
+<TabItem value="http">
+
+```http
+POST https://api.trackmage.com/oauth/v2/auth
+Content-Type: application/json
+{"grant_type": "authorization_code","code": "CODE", "redirect_uri": "https://example.com", "client_id": "YOUR_CLIENT_ID", "client_secret": "YOUR_CLIENT_SECRET"}
+```
+
+</TabItem>
+</Tabs>
+
+Example response:
+```json
+{
+  "access_token":"token",
+  "expires_in":3600,
+  "token_type":"bearer",
+  "scope":null,
+  "refresh_token":"token",
+  "user_id":"e7508450-4aab-4c5f-b14d-d7440e6da3fd",
+  "user_email":"test@example.com"
+}
+```
+</ul>

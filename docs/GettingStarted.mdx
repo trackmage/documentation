@@ -86,9 +86,6 @@ $data = [
 ];
 try {
     $response = $client->post('/shipments', [
-        'headers' => [
-            'Content-Type' => 'application/ld+json'
-        ],
         'json' => $data
     ]);
     $shipment = TrackMageClient::item($response);
@@ -129,9 +126,6 @@ curl 'https://api.trackmage.com/generate_tracking_page_link' \
 ```php
 try {
      $response = $client->post('/generate_tracking_page_link', [
-         'headers' => [
-            'Content-Type' => 'application/ld+json'
-         ],
          'json' => [
              'trackingPageId' => 'TRACKING_PAGE_ID',
              'filter' => [
