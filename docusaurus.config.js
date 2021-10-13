@@ -55,8 +55,10 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} OPTDEAL LIMITED, ALL RIGHTS RESERVED`,
     },
     matomo: {
-      matomoUrl: 'https://matomo.dev.trackmage.com/',
+      matomoUrl: 'https://vega.dev.trackmage.com/',
       siteId: '2',
+      phpLoader: 'mm.php',
+      jsLoader: 'mjs.php'
     },
   },
   presets: [
