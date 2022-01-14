@@ -1,0 +1,66 @@
+---
+id:  TrackingPageElements
+title: Tracking Widgets
+sidebar_label: Tracking Widgets
+slug: tracking-widgets.html
+---
+
+<p>TrackMage allows to add tracking widgets on your own pages.</p>
+
+To make widget works you should add script tag before `</body>`:
+
+```html
+<script type="text/javascript" src="https://s3-stage.trackmage.com/trackmage-widgets-rc/tracking-page-elements.js"></script>
+```
+
+## Setup Widget
+
+**Is required**. Should be added on each page where you want to use widgets.
+
+```html
+  <trackmage-setup domain="DOMAIN_NAME" locale="LOCALE_CODE"></trackmage-setup>
+```
+
+**Parameters:**
+
+<table className={'properties-table'}>
+    <tbody>
+        <tr><td><strong>domain</strong></td><td>Required parameter. Subdomain of your existing tracking page.</td></tr>
+        <tr><td><strong>locale</strong></td><td>Optional parameter. Locale two-letter code. If not set, default locale from your tracking page will be used. Allowed values: de, en, es, fr, gr, it, pt, ru.</td></tr>
+    </tbody>
+</table>
+
+
+:::note
+Tracking Cards and Lookup widgets can work as separate widgets or in a pair.
+:::
+
+:::note
+If Lookup widget is used as a separate widget, search result will be opened in a new tab with full version of tracking page.
+If Tracking Cards widget also presents on the page, search result with be shown on the same page.
+:::
+
+## Tracking Cards Widget
+
+```html
+  <trackmage-tracking-cards search="<TRACKING_NUMBER|ORDER_NUMBER>" bgcolor="BG_COLOR"></trackmage-tracking-cards>
+```
+
+**Parameters:**
+
+<table className={'properties-table'}>
+    <tbody>
+    <tr><td><strong>search</strong></td><td>Optional parameter. A Tracking Number or Order Number for which you want to show information.</td></tr>
+    <tr><td><strong>bgcolor</strong></td><td>Optional parameter. Css background color for language menu. If not set 'transparent' background will be used. Example #000000.</td></tr>
+    </tbody>
+</table>
+
+:::note
+**search** parameter should be set to display information if Tracking Cards widget is used without a Lookup widget
+:::
+
+## Lookup Widget
+
+```html
+  <trackmage-order-lookup></trackmage-order-lookup>
+```

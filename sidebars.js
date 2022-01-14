@@ -2,6 +2,10 @@ module.exports = {
   mainSidebar: [
     {
       type: 'doc',
+      id: 'TrackingPageElements'
+    },
+    {
+      type: 'doc',
       id: 'APIIntroduction'
     },
     {
