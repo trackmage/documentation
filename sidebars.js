@@ -2,10 +2,6 @@ module.exports = {
   mainSidebar: [
     {
       type: 'doc',
-      id: 'TrackingPageElements'
-    },
-    {
-      type: 'doc',
       id: 'APIIntroduction'
     },
     {
@@ -71,6 +67,10 @@ module.exports = {
       type: 'category',
       label: 'TrackMage SDKs',
       items: ['trackmage-sdks/PhpSdk']
+    },
+    {
+      type: 'doc',
+      id: 'TrackingPageElements'
     }
   ],
 };
