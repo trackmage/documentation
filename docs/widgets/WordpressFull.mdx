@@ -1,0 +1,132 @@
+---
+id: WordpressFull
+title: Complete widget's configuration in a WordPress
+sidebar_label: Shipment
+slug: wordpress-full.html
+---
+
+<h2>Complete widget's configuration in a WordPress</h2>
+
+<p>This guide will show you how to configure tracking page on the your own WordPress website</p>
+
+## Steps
+
+### 1. Configure tracking page
+
+<p>You should create and configure a tracking page in your TrackMage account.</p>
+
+:::tip
+You can find more helpful articles in our knowledgebase: [Basic Configuration](https://help.trackmage.com/en/knowledgebase/8-tracking-pages-basic-configuration) and [Visual Builder](https://help.trackmage.com/en/knowledgebase/10-tracking-pages-visual-builder)
+:::
+
+### 2. Create a new page in your WordPress website
+
+:::note
+You can use any custom page builder or native WordPress builder. We will use native WordPress page builder to create a new page.
+:::
+
+![New Wordpress Page](../../src/img/wordpress-full/new-page.png)
+
+### 3. Add TrackMage Setup Widget
+
+- ***Add code block***
+
+![Insert a code block](../../src/img/wordpress-full/add-setup-code-block.png)
+
+- ***Copy Setup Widget html code from the [docs](https://docs.trackmage.com/docs/tracking-widgets.html#setup-widget) and insert it into the code block***
+
+_Copy Setup Widget code:_
+![Copy Setup Widget code](../../src/img/wordpress-full/add-setup-copy-code.png)
+
+_Insert Code:_
+
+![Insert code](../../src/img/wordpress-full/add-setup-insert-code.png)
+
+- ***Replace parameter with your values***
+
+_Copy Tracking Page Domain:_
+![Copy Tracking Page Domain](../../src/img/wordpress-full/add-setup-copy-tp-domain.png)
+
+_In the result you should have something like below:_
+![Setup Widget Result](../../src/img/wordpress-full/add-setup-result.png)
+
+:::tip
+For locale parameter you can use one of ***de, en, es, fr, gr, it, pt, ru*** values.
+You can delete locale parameter, in that case default locale from tracking page will be used.
+:::
+
+### 4. Add two columns
+
+![Step 1](../../src/img/wordpress-full/add-columns-1.png)
+![Step 2](../../src/img/wordpress-full/add-columns-2.png)
+![result](../../src/img/wordpress-full/add-columns-result.png)
+
+### 5. Add Lookup Widget and Tracking Cards Widget to first column
+
+- ***Copy Lookup Widget code from the [docs](https://docs.trackmage.com/docs/tracking-widgets.html#setup-widget) and insert it***
+
+_Copy Lookup Widget Code:_
+
+![Copy Lookup Widget Code](../../src/img/wordpress-full/copy-lookup.png)
+
+_Add widget code to first column:_
+
+![Paste widget code Step 1](../../src/img/wordpress-full/add-lookup-code-1.png)
+![Paste widget code Step 2](../../src/img/wordpress-full/add-lookup-code-2.png)
+
+- ***Copy Tracking Cards Widget code from the [docs](https://docs.trackmage.com/docs/tracking-widgets.html#tracking-cards-widget) and insert it***
+
+_Copy Tracking Cards Widget Code:_
+
+![Copy Tracking Cards Widget Code](../../src/img/wordpress-full/copy-tp-widget.png)
+
+_Add widget code to first column:_
+
+![Paste Tracking Page Widget Code](../../src/img/wordpress-full/insert-tp-widget.png)
+![Delete unnecessary parameters](../../src/img/wordpress-full/delete-tp-params.png)
+
+- ***In the result you should have something like below:***
+
+![Widgets result](../../src/img/wordpress-full/insert-tp-result.png)
+
+### 6. Add Sidebar Widget to second column
+
+- ***Copy Tracking Cards Widget code from the [docs](https://docs.trackmage.com/docs/tracking-widgets.html#sidebar-widget) and insert it***
+
+_Copy Sidebar Widget Code:_
+
+![Copy Sidebar Widget Code](../../src/img/wordpress-full/copy-sidebar.png)
+
+_Paste Sidebar Widget Code:_
+
+![Paste Sidebar Widget Code](../../src/img/wordpress-full/paste-sidebar-code.png)
+
+### 7. Add script code to the page
+
+- ***Copy script code from the [docs](https://docs.trackmage.com/docs/tracking-widgets.html)***
+
+![Copy Script Code](../../src/img/wordpress-full/copy-script.png)
+
+- ***Paste script code***
+
+![Add Script Code to the Page](../../src/img/wordpress-full/paste-script.png)
+
+### 8. Save changes on the editor and open your page.
+
+***If everything was added correctly, you will have working widgets on the page:***
+
+![Tracking Page Example](../../src/img/wordpress-full/another-layout.png)
+
+***Test widgets work with one of your tracking/order number***
+
+![Tracking Page Example 1](../../src/img/wordpress-full/test-step-1.png)
+
+![Tracking Page Example 2](../../src/img/wordpress-full/test-step-2.png)
+
+:::tip
+Page layout is just example. You can use widgets in different blocks on the page.
+![Another Layout](../../src/img/wordpress-full/another-layout.png)
+![Another Layout Example](../../src/img/wordpress-full/another-layout-example-1.png)
+![Another Layout Example 2](../../src/img/wordpress-full/test-step-2.png)
+:::
+
