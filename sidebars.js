@@ -69,8 +69,13 @@ module.exports = {
       items: ['trackmage-sdks/PhpSdk']
     },
     {
-      type: 'doc',
-      id: 'TrackingPageElements'
+      type: 'category',
+      label: 'Widgets',
+      items: [
+        'TrackingPageElements',
+        'widgets/WordpressFull',
+        'widgets/WidgetsTroubleshooting'
+      ]
     }
   ],
 };

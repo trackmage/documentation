@@ -1,0 +1,44 @@
+---
+id: WidgetsTroubleshooting
+title: Troubleshooting Widgets
+sidebar_label: Troubleshooting Widgets
+slug: widgets-troubleshooting.html
+---
+
+<p>In this article we will look at some cases where widgets may not work on the page, as well as ways to troubleshoot problems.</p>
+
+:::note
+First of all, you need to check if you added [Setup Widget](https://docs.trackmage.com/docs/tracking-widgets.html#setup-widget) and `<script type="text/javascript" src="https://s3-stage.trackmage.com/trackmage-widgets-rc/tracking-page-elements.js"></script>` on the page.
+:::
+
+### Lookup Widget is not visible.
+
+- Check you placed widget code `<trackmage-order-lookup></trackmage-order-lookup>` into visible block.
+- Check you use correct domain parameter for [Setup Widget](https://docs.trackmage.com/docs/tracking-widgets.html#setup-widget).
+- Check you have no [Tracking Page Widget](https://docs.trackmage.com/docs/tracking-widgets.html#tracking-cards-widget) with set parameter `search` on the page
+
+### Tracking Cards Widget in not visible on the page.
+
+- Check you placed widget code `<trackmage-tracking-cards search="<TRACKING_NUMBER|ORDER_NUMBER>" bgcolor="BG_COLOR"></trackmage-tracking-cards>` into visible block.
+- Check you use correct domain parameter for [Setup Widget](https://docs.trackmage.com/docs/tracking-widgets.html#setup-widget).
+- Check you set `search` parameter for the widget.
+
+:::note
+The `search` parameter should be set to display information if Tracking Cards widget is used without a Lookup widget.
+If you use Tracking Cards widget in combination with Lookup widget, it will be displayed on successful search result.
+:::
+
+### Tracking Cards Widget is showed as infinite loader.
+
+- Check you use correct domain parameter for [Setup Widget](https://docs.trackmage.com/docs/tracking-widgets.html#setup-widget).
+- Check if you set correct Tracking Number or Order Number as `search` parameter for the widget.
+
+### Sidebar Widget in not visible on the page.
+
+- Check you placed widget code `<trackmage-tracking-sidebar></trackmage-tracking-sidebar>` into visible block.
+- Check you have a valid [Tracking Page Widget](https://docs.trackmage.com/docs/tracking-widgets.html#tracking-cards-widget) on the page, and it's visible.
+- Check sidebar is enabled on the tracking page you used for [Setup Widget](https://docs.trackmage.com/docs/tracking-widgets.html#setup-widget).
+
+
+
+
