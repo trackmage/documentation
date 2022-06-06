@@ -79,6 +79,6 @@ module.exports = {
     carriersJSON,
   },
   plugins: [
-      'docusaurus-plugin-matomo',
+      'docusaurus-plugin-matomo'
   ]
 };

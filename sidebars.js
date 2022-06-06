@@ -71,10 +71,17 @@ module.exports = {
     {
       type: 'category',
       label: 'Widgets',
+      link: {
+        type: 'generated-index',
+        title: 'Widgets Guides',
+        description: 'Learn about the TrackMage Widgets',
+        slug: '/category/widgets-guides',
+      },
       items: [
-        'TrackingPageElements',
+        'widgets/TrackingPageElements',
         'widgets/WordpressFull',
-        'widgets/WidgetsTroubleshooting'
+        'widgets/WidgetsTroubleshooting',
+        'widgets/ValidatelyWidget'
       ]
     }
   ],

@@ -1,0 +1,119 @@
+---
+id: ValidatelyWidget
+title: Validately Widget
+sidebar_label: Validately Widget
+slug: validately-widgets.html
+---
+
+## Introduction
+
+<p>In this article we will look at configure, usage and troubleshooting of <strong>Validately Widget</strong>.</p>
+<p>TrackMage provides the opportunity to validate your customers' emails on your store website using the <strong>Validately</strong> widget.</p>
+<p>The widget is easily embedded on any of your pages (such as registration, check-out, etc.) and checks the entered email in real-time.</p>
+
+## Configure Widget
+
+<p>Before configure validately widget please go to widgets page and add new Validately widget:</p>
+
+### Add Validately widget in your TrackMage account
+
+- Go to widgets page
+
+![Go To Widgets Page](../../src/img/validately-widget/to-widgets-page.png)
+
+- Add new Validately Widget
+
+![Add New Widget](../../src/img/validately-widget/new-widget.png)
+
+### Modify widget options
+
+For the widget it is possible to set some options:
+- **Domain** - the domain name you want to allow the work of widget.
+- **Validation Message** - Validation message will be shown on a validation error.
+- **Suggestion Template** - Suggestion message will be shown if the system suggests any domain instead of the one you entered. Place **EMAIL_DOMAIN** to the template in a place where you want the suggested domain should be shown.
+- **Email Input Selector** - CSS selector for the input fields you want the validation works for. By default, it works for all inputs **[type=email]** on the page. Do not change if you are not sure.
+
+![Widget Options](../../src/img/validately-widget/widget-options.png)
+
+:::note
+All options are required. But only **Domain** does not have a default value.
+:::
+
+:::note
+Widget will work on domain and all subdomains (for example, if domain is **trackmage.com**, it will work on **trackmage.com, help.trackmage.com, docs.trackmage.com, etc.**).
+If you want to use widget on a specific subdomain, please enter full subdomain name (for example, **docs.trackmage.com**).
+:::
+
+## Usage of the Widget
+
+### Copy Code
+
+To copy code, go to **EMBEDDED CODE** tab and press **COPY CODE** button.
+
+![Copy Widget Code](../../src/img/validately-widget/copy-code.png)
+
+:::note
+All necessary options are already filled into the generated widget code.
+:::
+
+### Paste code on your website
+
+After copy, your code will look like sample below.
+
+```javascript
+<script type="text/javascript" src="https://api.trackmage.com/validately.js"></script>
+<script>
+    window.ValidatelyDOMContentLoaded(function() {
+        const validationMessage = 'Please enter a valid email. Try checking the spelling.';
+        const suggestionTemplate = 'Did you mean <strong>EMAIL_DOMAIN</strong>? If not, please ignore this message.';
+        const widgetId = '76a1f7e6-8f3a-46b2-896f-01d39a283c01';
+        const inputs = document.querySelectorAll('[type=email]');
+        inputs.forEach(input => window.Validately({input, validationMessage, suggestionTemplate, widgetId}));
+    })
+</script>
+```
+
+To make it works on your store website, please go to your website and add the code to the page where you want validation works.
+
+For example, on your WordPress website go to page/post editor, add Custom HTML block and paste widget code into it.
+
+![Paste Widget Code](../../src/img/validately-widget/paste-to-wp.png)
+
+Finally, please test the work of widget on your page.
+
+![Result of Widget Work](../../src/img/validately-widget/result-success.png)
+
+![Result of Widget Work With Error](../../src/img/validately-widget/result-with-error.png)
+
+## Common Issues
+
+You have added widget, copied code and pasted on your website, but you don't see any messages or interactions of enter email to the input field.
+In that case please open **Developer Tools** in your browser and open console.
+You will be able to see validately errors:
+
+![Validately Error](../../src/img/validately-widget/error.png)
+
+Below we will review common errors and ways to solve them.
+
+### Wrong Domain
+
+Error message looks like **Domain is not allowed to use Validately widget with ID: {$widgetId}**
+
+**Solution:** please go to your widget's settings page and check the **Domain** field contains correct domain name.
+
+### Wrong Widget ID or Widget ID is corresponding not to Validately Widget
+
+Error message looks like **Validately widget with ID {$widgetId} was not found**
+
+Often such error may occur if widget code was edited manually and **widgetId** was changed.
+
+**Solution:** please go to your widget's embedded code page, copy the code and use it instead of used on the website.
+
+### Widget is disabled
+
+Error message looks like **Validately widget is disabled. Please enable it before use.**
+
+**Solution:** please go to your widget page and enable widget.
+
+![Enable Widget](../../src/img/validately-widget/enable-widget.png)
+
