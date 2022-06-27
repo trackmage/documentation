@@ -81,7 +81,7 @@ module.exports = {
         'widgets/TrackingPageElements',
         'widgets/WordpressFull',
         'widgets/WidgetsTroubleshooting',
-        'widgets/ValidatelyWidget'
+        'widgets/EmailValidationScript'
       ]
     }
   ],
