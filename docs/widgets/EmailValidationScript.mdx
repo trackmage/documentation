@@ -112,7 +112,7 @@ Error message looks like **Email Validation Script widget is disabled. Please en
 ### How to allow work of Email Validation Script only on specified pages
 
 ```javascript
-<script src="https://api.trackmage.com/validately.js"></script>
+<script src="https://api.trackmage.com/email-validation.js"></script>
 <script>
     window.TrackMageEmailValidationDOMContentLoaded(function() {
         const idx = ['/checkout/', '/contact-us/', '/login/'].indexOf(window.location.pathname);
@@ -132,7 +132,7 @@ Error message looks like **Email Validation Script widget is disabled. Please en
 ### How to avoid thrive-themes and elementor bug
 
 ```javascript
-<script src="https://api.trackmage.com/validately.js"></script>
+<script src="https://api.trackmage.com/email-validation.js"></script>
 <script>
     window.TrackMageEmailValidationDOMContentLoaded(function() {
         const msg = 'Please enter a valid email. Try checking the spelling.';
@@ -150,7 +150,7 @@ Error message looks like **Email Validation Script widget is disabled. Please en
 ### How to add multiple languages
 
 ```javascript
-<script src="https://api.trackmage.com/validately.js"></script>
+<script src="https://api.trackmage.com/email-validation.js"></script>
 <script>
     window.TrackMageEmailValidationDOMContentLoaded(function() {
         const idx = ['/en/checkout/', '/de/checkout/'].indexOf(window.location.pathname);
@@ -163,7 +163,7 @@ Error message looks like **Email Validation Script widget is disabled. Please en
             'Meinten Sie <strong>EMAIL_DOMAIN</strong>? Wenn nicht, ignorieren Sie diese Nachricht bitte.',
         ];
         const widgetId = 'WIDGET_ID';
-        const input = document.getElementById("billing_email");
+        const input = document.getElementById("bislling_email");
         if (null !== input) {
             window.TrackMageEmailValidation({input, validationMessage: msgs[idx], suggestionTemplate: suggestionMsgs[idx], widgetId});
         }
